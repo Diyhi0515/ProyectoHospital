@@ -14,14 +14,14 @@ public class Persona {
     private String apellidoP;
     private String apellidoM;
     private float salario;
-    private Date fechaContatavcion;
-    public Persona(int ci,String nombre, String apellidoP, String apellidoM, float salario, Date fechaContatavcion){
+    private Date fechaContatacion;
+    public Persona(int ci,String nombre, String apellidoP, String apellidoM, float salario, Date fechaContatacion){
         this.ci = ci;
         this.nombre = nombre;
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
         this.salario = salario;
-        this.fechaContatavcion = fechaContatavcion;
+        this.fechaContatacion = fechaContatacion;
     }
     public Persona(){};
 
@@ -45,8 +45,8 @@ public class Persona {
         return salario;
     }
 
-    public Date getFechaContatavcion() {
-        return fechaContatavcion;
+    public Date getFechaContatacion() {
+        return fechaContatacion;
     }
 
     public void setCi(int ci) {
@@ -65,12 +65,12 @@ public class Persona {
         this.apellidoM = apellidoM;
     }
 
-    public void setSalario(int salario) {
+    public void setSalario(float salario) {
         this.salario = salario;
     }
 
-    public void setFechaContatavcion(Date fechaContatavcion) {
-        this.fechaContatavcion = fechaContatavcion;
+    public void setFechaContatacion(Date fechaContatacion) {
+        this.fechaContatacion = fechaContatacion;
     }
     public static Persona getPersona(int id){
         ConectarBase conexion =new ConectarBase();
@@ -84,7 +84,8 @@ public class Persona {
                 per.setNombre(rs.getString("nombre"));
                 per.setApellidoP(rs.getString("apellidoP"));
                 per.setApellidoM(rs.getString("apellidoM"));
-                //per.setSalario(rs.getFloat(""));
+                per.setSalario(rs.getFloat("salario"));
+                per.setFechaContatacion(rs.getDate("fechaContratacion"));
             }
             rs.close();
         } catch (SQLException throwables) {
@@ -93,37 +94,39 @@ public class Persona {
         return per;
     }
 
-    /*public void insertarAdministrador(){
+    public void insertarPersona(){
         try {
             ConectarBase con=new ConectarBase();
             PreparedStatement ps = con.conectarMySQL().prepareStatement(
-                    "INSERT INTO Administrador(per_ci,experiecia,cargo,responsabilidad) VALUES(?,?,?,?)");
-            ps.setInt(1, per_ci);
-            ps.setString(2, experiencia);
-            ps.setString(3, cargo);
-            ps.setString(4,responsabilidad);
+                    "INSERT INTO Persona(ci,nombre,apellidoP,apellidoM, salario, fechaContratacion) VALUES(?,?,?,?,?,?)");
+            ps.setInt(1, ci);
+            ps.setString(2, nombre);
+            ps.setString(3, apellidoP);
+            ps.setString(4, apellidoM);
+            ps.setFloat(5,salario);
+            ps.setDate(6, (java.sql.Date) fechaContatacion);
             ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    public void eliminarAdministrador(int id){
+    public void eliminarPersona(int id){
         ConectarBase con = new ConectarBase();
         try {
             PreparedStatement ps = con.conectarMySQL().prepareStatement(
-                    "delete from Administrador where per_ci = ?");
+                    "delete from Persona where ci = ?");
             ps.setInt(1,id);
             ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-    public void modificarExperiencia(int ci, String n){
+    public void modificarNombre(int ci, String n){
         ConectarBase con = new ConectarBase();
         try {
             PreparedStatement ps = con.conectarMySQL().prepareStatement(
-                    "UPDATE Administrador  \n" +
-                            "    SET experiencia = ?   where per_ci = ?");
+                    "UPDATE Persona  \n" +
+                            "    SET nombre = ?   where ci = ?");
             ps.setString(1, n);
             ps.setInt(2,ci);
             ps.execute();
@@ -131,12 +134,12 @@ public class Persona {
             throw new RuntimeException(e);
         }
     }
-    public void modificarCargo(int ci, String n){
+    public void modificarApellidoP(int ci, String n){
         ConectarBase con = new ConectarBase();
         try {
             PreparedStatement ps = con.conectarMySQL().prepareStatement(
-                    "UPDATE Administrador  \n" +
-                            "    SET cargo = ?   where per_ci = ?");
+                    "UPDATE Persona  \n" +
+                            "    SET apellidoP = ?   where ci = ?");
             ps.setString(1, n);
             ps.setInt(2,ci);
             ps.execute();
@@ -144,17 +147,43 @@ public class Persona {
             throw new RuntimeException(e);
         }
     }
-    public void modificarResponsabilidad(int ci, String n){
+    public void modificarApellidoM(int ci, String n){
         ConectarBase con = new ConectarBase();
         try {
             PreparedStatement ps = con.conectarMySQL().prepareStatement(
-                    "UPDATE Administrador  \n" +
-                            "    SET responsabilidad = ?   where per_ci = ?");
+                    "UPDATE Persona  \n" +
+                            "    SET apellidoM = ?   where ci = ?");
             ps.setString(1, n);
             ps.setInt(2,ci);
             ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
+    public void modificarSalario(int ci, float s){
+        ConectarBase con = new ConectarBase();
+        try {
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "UPDATE Persona  \n" +
+                            "    SET responsabilidad = ?   where ci = ?");
+            ps.setFloat(1, s);
+            ps.setInt(2,ci);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void modificarFechaContratacion(int ci, Date dt){
+        ConectarBase con = new ConectarBase();
+        try {
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "UPDATE Persona  \n" +
+                            "    SET fechaContratacion = ?   where ci = ?");
+            ps.setDate(1, (java.sql.Date) dt);
+            ps.setInt(2,ci);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
