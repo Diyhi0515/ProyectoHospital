@@ -1,8 +1,6 @@
 package Conexion;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class ConectarBase {
     private String host = "127.0.0.1";
@@ -24,4 +22,27 @@ public class ConectarBase {
         }
         return conn;
     }
+    public void ejecutarSQL(String sql) {
+        try (Connection con = conectarMySQL()) {
+            Statement consulta = con.createStatement();
+            consulta.execute(sql);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public void obtenerSQL(String sql) {
+        try (Connection con = conectarMySQL()) {
+            Statement consulta = con.createStatement();
+            ResultSet rs=consulta.executeQuery(sql);
+            while(rs.next()){
+                System.out.println(rs.getString("numero_id")+".- "+rs.getString("nombre"));
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+
 }

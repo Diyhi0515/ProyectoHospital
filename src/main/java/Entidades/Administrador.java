@@ -1,5 +1,12 @@
 package Entidades;
 
+import Conexion.ConectarBase;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Administrador {
     private int ci;
     private String experiencia;
@@ -11,6 +18,7 @@ public class Administrador {
         this.cargo = responsabilidad;
         this.responsabilidad = responsabilidad;
     }
+    public Administrador(){}
 
     public int getCi() {
         return ci;
@@ -43,4 +51,6 @@ public class Administrador {
     public void setResponsabilidad(String responsabilidad) {
         this.responsabilidad = responsabilidad;
     }
+
+
 }
