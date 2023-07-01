@@ -8,20 +8,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Administrador {
-    private int ci;
+    private int per_ci;
     private String experiencia;
     private String cargo;
     private String responsabilidad;
     public Administrador(int ci, String experiencia, String cargo, String responsabilidad){
-        this.ci = ci;
+        this.per_ci = ci;
         this.experiencia = experiencia;
-        this.cargo = responsabilidad;
+        this.cargo = cargo;
         this.responsabilidad = responsabilidad;
     }
     public Administrador(){}
 
-    public int getCi() {
-        return ci;
+    public int getPer_Ci() {
+        return per_ci;
     }
 
     public String getExperiencia() {
@@ -36,8 +36,8 @@ public class Administrador {
         return responsabilidad;
     }
 
-    public void setCi(int ci) {
-        this.ci = ci;
+    public void setPer_Ci(int ci) {
+        this.per_ci = ci;
     }
 
     public void setExperiencia(String experiencia) {
@@ -51,6 +51,89 @@ public class Administrador {
     public void setResponsabilidad(String responsabilidad) {
         this.responsabilidad = responsabilidad;
     }
+    public static Administrador getAdministrador(int id){
+        ConectarBase conexion =new ConectarBase();
+        Administrador ad = new Administrador();
+        try (Connection con = conexion.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Administrador WHERE per_ci = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                ad.setPer_Ci(rs.getInt("per_ci"));
+                ad.setExperiencia(rs.getString("experiencia"));
+                ad.setCargo(rs.getString("cargo"));
+                ad.setResponsabilidad(rs.getString("responsabilidad"));
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ad;
+    }
 
+    public void insertarAdministrador(){
+        try {
+            ConectarBase con=new ConectarBase();
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "INSERT INTO Administrador(per_ci,experiecia,cargo,responsabilidad) VALUES(?,?,?,?)");
+            ps.setInt(1, per_ci);
+            ps.setString(2, experiencia);
+            ps.setString(3, cargo);
+            ps.setString(4,responsabilidad);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarAdministrador(int id){
+        ConectarBase con = new ConectarBase();
+        try {
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "delete from Administrador where per_ci = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void modificarExperiencia(int ci, String n){
+        ConectarBase con = new ConectarBase();
+        try {
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "UPDATE Administrador  \n" +
+                            "    SET experiencia = ?   where per_ci = ?");
+            ps.setString(1, n);
+            ps.setInt(2,ci);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void modificarCargo(int ci, String n){
+        ConectarBase con = new ConectarBase();
+        try {
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "UPDATE Administrador  \n" +
+                            "    SET cargo = ?   where per_ci = ?");
+            ps.setString(1, n);
+            ps.setInt(2,ci);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void modificarResponsabilidad(int ci, String n){
+        ConectarBase con = new ConectarBase();
+        try {
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "UPDATE Administrador  \n" +
+                            "    SET responsabilidad = ?   where per_ci = ?");
+            ps.setString(1, n);
+            ps.setInt(2,ci);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
