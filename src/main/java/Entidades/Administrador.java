@@ -6,13 +6,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
-public class Administrador {
+public class Administrador extends Persona {
     private int per_ci;
     private String experiencia;
     private String cargo;
     private String responsabilidad;
-    public Administrador(int ci, String experiencia, String cargo, String responsabilidad){
+    //Persona p;
+    public Administrador(int ci, String nombre, String apellidoP, String apellidoM, float salario, Date fechaContatacion, String experiencia, String cargo, String responsabilidad){
+        super(ci,nombre,apellidoP,apellidoM,salario,fechaContatacion);
+        insertarPersona();
         this.per_ci = ci;
         this.experiencia = experiencia;
         this.cargo = cargo;
@@ -134,6 +138,16 @@ public class Administrador {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    @Override
+    public String toString() {
+        return "Proveedor{" +
+                "ci=" + per_ci +
+                //", nombre='" + getNombre() + '\'' +
+                ", experiencia='" + experiencia + '\'' +
+                ", cargo='" + cargo + '\'' +
+                ", responsabilidad='" + responsabilidad + '\'' +
+                '}';
     }
 
 }
