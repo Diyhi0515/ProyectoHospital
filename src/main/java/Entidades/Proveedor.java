@@ -51,7 +51,7 @@ public class Proveedor {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
+  //Guardar datos de la tabla al objeto por medio del id
     public static Proveedor getProveedor(int id){
         ConectarBase conexion =new ConectarBase();
         Proveedor buscado=new Proveedor();
@@ -71,6 +71,7 @@ public class Proveedor {
         }
         return buscado;
     }
+    //insertar datos a la tabla en la base
     public void insertarProveedor(){
         try {
             ConectarBase con=new ConectarBase();
@@ -85,6 +86,18 @@ public class Proveedor {
             throw new RuntimeException(e);
         }
     }
+    public void eliminarProveedor(int id){
+        ConectarBase con = new ConectarBase();
+        try {
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "delete from Proveedor where nit = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public String toString() {
         return "Proveedor{" +
