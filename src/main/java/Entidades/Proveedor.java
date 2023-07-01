@@ -12,6 +12,7 @@ public class Proveedor {
     private String nombre;
     private  int contacto;
     private String direccion;
+
     public Proveedor(int nit,String nombre,int contacto, String dirección){
         this.nit = nit;
         this.nombre = nombre;
@@ -64,6 +65,7 @@ public class Proveedor {
                 buscado.setNombre(rs.getString("nombre"));
                 buscado.setContacto(rs.getInt("contacto"));
                 buscado.setDireccion(rs.getString("direccion"));
+
             }
             rs.close();
         } catch (SQLException throwables) {
@@ -92,6 +94,45 @@ public class Proveedor {
             PreparedStatement ps = con.conectarMySQL().prepareStatement(
                     "delete from Proveedor where nit = ?");
             ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void modificarNombre(int nit, String n){
+        ConectarBase con = new ConectarBase();
+        try {
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "UPDATE Proveedor  \n" +
+                            "    SET nombre = ?   where nit = ?");
+            ps.setString(1, n);
+            ps.setInt(2,nit);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void modificarContacto(int nit, int co){
+        ConectarBase con = new ConectarBase();
+        try {
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "UPDATE Proveedor  \n" +
+                            "    SET contacto = ?   where nit = ?");
+            ps.setInt(1, co);
+            ps.setInt(2,nit);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void modificarDireccion(int nit, String di){
+        ConectarBase con = new ConectarBase();
+        try {
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "UPDATE Proveedor  \n" +
+                            "    SET direccion = ?   where nit = ?");
+            ps.setString(1, di);
+            ps.setInt(2,nit);
             ps.execute();
         } catch (SQLException e) {
             throw new RuntimeException(e);

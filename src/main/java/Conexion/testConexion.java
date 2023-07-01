@@ -12,9 +12,12 @@ public class testConexion {
         pv2.insertarProveedor();
         System.out.println(Proveedor.getProveedor(124));*/
         Proveedor pv3 = new Proveedor();
-        pv3.eliminarProveedor(124);
+        /*pv3.eliminarProveedor(124);
+        System.out.println(Proveedor.getProveedor(124));*/
+        //pv.modificarNombre(123, "Sentirse Bien");
+        //pv.modificarContacto(124, 311122);
+        pv.modificarDireccion(124, "Calle Tartagal");
         System.out.println(Proveedor.getProveedor(124));
-
 
 
     }
