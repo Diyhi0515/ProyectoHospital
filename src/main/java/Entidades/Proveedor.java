@@ -71,6 +71,20 @@ public class Proveedor {
         }
         return buscado;
     }
+    public void insertarProveedor(){
+        try {
+            ConectarBase con=new ConectarBase();
+            PreparedStatement ps = con.conectarMySQL().prepareStatement(
+                    "INSERT INTO Proveedor(nit,nombre,contacto,direccion) VALUES(?,?,?,?)");
+            ps.setInt(1, nit);
+            ps.setString(2, nombre);
+            ps.setInt(3,contacto);
+            ps.setString(4,direccion);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     @Override
     public String toString() {
         return "Proveedor{" +
