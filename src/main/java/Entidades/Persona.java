@@ -186,4 +186,15 @@ public class Persona {
             throw new RuntimeException(e);
         }
     }
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "ci=" + ci +
+                ", nombre='" + nombre + '\'' +
+                ", apellidoP='" + apellidoP+ '\'' +
+                ", apellidoM='" + apellidoM + '\'' +
+                ", salario='" + salario + '\'' +
+                ", fechaContratacion='" + fechaContatacion + '\'' +
+                '}';
+    }
 }

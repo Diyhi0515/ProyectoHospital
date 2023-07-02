@@ -100,5 +100,12 @@ public class Medico extends Persona{
             throw new RuntimeException(e);
         }
     }
-
+    @Override
+    public String toString() {
+        return "Medico{" +
+                "ci=" + per_ci +
+                ", especialidad='" + especialidad + '\'' +
+                ", nLicMedica='" + nLicMedica + '\'' +
+                '}';
+    }
 }
