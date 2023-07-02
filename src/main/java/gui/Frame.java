@@ -1,7 +1,6 @@
 package gui;
 
 import Comandos.Sql;
-import Entidades.Administrador;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
-public class Frame extends JFrame {
+public class Frame extends JFrame implements ActionListener {
 
     JTable jTable;
     JScrollPane consultas;
@@ -19,11 +18,16 @@ public class Frame extends JFrame {
     JTextField[] atributos;
     JLabel[] atributosNombres;
 
+    JMenuBar menuBarra;
     JButton btnAgregar;
     JButton btnModificar;
     JButton btnEliminar;
 
+    JComboBox<String> entidades;
 
+    private JMenu menuArchivo, menuTablas;
+    private JMenuItem itemSalir;
+    private JMenuItem itemProveedor;
 
     public Frame() throws SQLException {
 
@@ -35,6 +39,8 @@ public class Frame extends JFrame {
 
         jTable = Sql.consultaTotal("proveedor");
         consultas = new JScrollPane(jTable);
+
+        crearComboBox();
 
         JLabel titulo1 = new JLabel("Atributos");
         JLabel titulo2 = new JLabel("Acciones");
@@ -48,9 +54,11 @@ public class Frame extends JFrame {
         titulo1.setBounds(100,0,150,50);
         titulo2.setBounds(450,0,150,50);
 
-        actualizarAtributos("Administrador");
-        inicializarBotones();
+        declararMenu();
+
+        actualizarAtributos("proveedor");
         panelConsultas.add(consultas);
+        inicializarBotones();
         setBackground(Color.PINK);
         iniciarPantalla();
 
@@ -63,6 +71,35 @@ public class Frame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
+    }
+
+    private void declararMenu(){
+        menuBarra = new JMenuBar();
+
+        menuArchivo = new JMenu("Archivo");
+        menuTablas = new JMenu("tablas");
+
+        itemSalir = new JMenuItem("Salir");
+        itemProveedor = new JMenuItem("Proveedor");
+
+        itemSalir.addActionListener(this);
+        itemProveedor.addActionListener(this);
+
+        setJMenuBar(menuBarra);
+
+        menuBarra.add(menuArchivo);
+        menuBarra.add(menuTablas);
+
+        menuTablas.add(itemProveedor);
+        menuArchivo.add(itemSalir);
+    }
+
+    private void actualizarTabla(String tabla) throws SQLException {
+        panelConsultas.remove(consultas);
+        jTable.setModel(Sql.consultaTotal(tabla).getModel());
+        consultas = new JScrollPane(jTable);
+        panelConsultas.add(consultas);
+        panelConsultas.updateUI();
     }
 
     private void inicializarBotones(){
@@ -87,18 +124,25 @@ public class Frame extends JFrame {
     }
     private void actualizarAtributos(String tabla) throws SQLException {
         String[] listaAtributos = Sql.getAtributos(tabla);
+
+        if (atributosNombres != null){
+            for (int i = 0; i < atributosNombres.length; i++) {
+                remove(atributos[i]);
+                remove(atributosNombres[i]);
+            }
+        }
         atributos = new JTextField[listaAtributos.length];
         atributosNombres = new JLabel[listaAtributos.length];
+
 
         int y = 40;
         for (int i = 0; i < listaAtributos.length; i++) {
             atributos[i] = new JTextField();
             atributosNombres[i] = new JLabel(listaAtributos[i]+": ", SwingConstants. RIGHT);
-            atributos[i].setBounds(130,(i+1)*y,70,20);
-            atributosNombres[i].setBounds(10,(i+1)*y,120,20);
             add(atributos[i]);
             add(atributosNombres[i]);
-
+            atributos[i].setBounds(130,(i+1)*y,70,20);
+            atributosNombres[i].setBounds(10,(i+1)*y,120,20);
         }
     }
     public void botones(){
@@ -109,11 +153,52 @@ public class Frame extends JFrame {
             }
         });
     }
+
+    public void crearComboBox(){
+        entidades = new JComboBox<>();
+        entidades.addItem("Proveedor");
+        entidades.addItem("Administrador");
+        entidades.addItem("Departamento");
+        entidades.addItem("EquipoMedico");
+        entidades.addItem("Sala");
+        entidades.addItem("Farmaceutico");
+        entidades.addItem("Certificaciones");
+        entidades.addItem("Medico");
+        entidades.addItem("Asignado");
+        entidades.addItem("Medicamento");
+        entidades.addItem("Ingredientes");
+        entidades.addItem("Entrega");
+        add(entidades);
+        entidades.setBounds(250,200,130,30);
+
+        entidades.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    actualizarAtributos((String)entidades.getSelectedItem());
+                    actualizarTabla((String)entidades.getSelectedItem());
+                    consultas.updateUI();
+
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+            }
+        });
+        }
+
     public static void main(String[] args) {
         try {
             Frame frame = new Frame();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == itemSalir) {
+            System.exit(0);
         }
     }
 }
