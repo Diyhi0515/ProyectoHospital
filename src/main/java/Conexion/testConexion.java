@@ -26,5 +26,6 @@ public class testConexion {
         //s.eliminar(123,"Proveedor", "nit");
        // System.out.println(s.getPersona(1));
         s.modificar("Proveedor", "nit", 124,"contacto", "444555");
+
     }
 }
