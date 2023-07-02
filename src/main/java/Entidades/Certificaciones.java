@@ -1,23 +1,23 @@
 package Entidades;
 
 public class Certificaciones {
-   private int ci;
+   private int farm_per_ci;
    private String certificacion;
    public Certificaciones(int ci, String certificacion){
-       this.ci=ci;
+       this.farm_per_ci=ci;
        this.certificacion = certificacion;
    }
 
-    public int getCi() {
-        return ci;
+    public int getFarm_per_ci() {
+        return farm_per_ci;
     }
 
     public String getCertificacion() {
         return certificacion;
     }
 
-    public void setCi(int ci) {
-        this.ci = ci;
+    public void setFarm_per_ci(int farm_per_ci) {
+        this.farm_per_ci = farm_per_ci;
     }
 
     public void setCertificacion(String certificacion) {
