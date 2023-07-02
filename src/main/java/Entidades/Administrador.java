@@ -89,17 +89,7 @@ public class Administrador extends Persona {
             throw new RuntimeException(e);
         }
     }
-    public void eliminarAdministrador(int id){
-        ConectarBase con = new ConectarBase();
-        try {
-            PreparedStatement ps = con.conectarMySQL().prepareStatement(
-                    "delete from Administrador where per_ci = ?");
-            ps.setInt(1,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     public void modificarExperiencia(int ci, String n){
         ConectarBase con = new ConectarBase();
         try {

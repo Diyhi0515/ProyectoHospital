@@ -201,6 +201,161 @@ public class Sql {
         }
         return eqm;
     }
+    public Sala getSala(int id){
+        Sala sl =new Sala();
+        try (Connection con = cb.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM EquipoMedico WHERE cod = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+
+
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return sl;
+    }
+
+    //Eliminar tabla
+
+    public void eliminarAdministrador(int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Administrador where per_ci = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarPersona(int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Persona where ci = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarProveedor(int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Proveedor where per_ci = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarDepartamento(int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Departamento where id = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarEquipoMedico(int id, int depId){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from EquipoMedico where cod = ? and dep_id = ?");
+            ps.setInt(1,id);
+            ps.setInt(2,depId);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarSala(int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Sala where numHabitacion = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarFarmaceutico(int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Farmaceutico where per_ci = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarCertificacion(int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Certificaciones where farm_per_ci = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarMedico(int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Medico where per_ci = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarAsignado(int ci, int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Asignado where med_per_ci = ? and dep_id = ?");
+            ps.setInt(1,ci);
+            ps.setInt(2,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarMedicamento(int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Medicamento where id = ?");
+            ps.setInt(1,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarIngrediente(int id, String ig){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Ingredientes where med_id = ? and ingrediente = ? ");
+            ps.setInt(1,id);
+            ps.setString(2, ig);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void eliminarEntrega(int nit, int id){
+        try {
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
+                    "delete from Entrega where prov_nit = ? and med_id = ?");
+            ps.setInt(1,nit);
+            ps.setInt(2,id);
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 
     public static void main(String[] args) {
 

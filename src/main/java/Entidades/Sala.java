@@ -11,7 +11,7 @@ public class Sala {
         this.disponibilidad = disponibilidad;
         this.id = id;
     }
-
+    public Sala(){}
     public int getNumHabitacion() {
         return numHabitacion;
     }
