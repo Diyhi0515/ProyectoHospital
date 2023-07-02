@@ -55,7 +55,7 @@ public class Administrador extends Persona {
     public void setResponsabilidad(String responsabilidad) {
         this.responsabilidad = responsabilidad;
     }
-    public static Administrador getAdministrador(int id){
+    /*public static Administrador getAdministrador(int id){
         ConectarBase conexion =new ConectarBase();
         Administrador ad = new Administrador();
         try (Connection con = conexion.conectarMySQL()) {
@@ -73,7 +73,7 @@ public class Administrador extends Persona {
             throwables.printStackTrace();
         }
         return ad;
-    }
+    }*/
 
     public void insertarAdministrador(){
         try {

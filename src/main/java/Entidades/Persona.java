@@ -72,7 +72,7 @@ public class Persona {
     public void setFechaContatacion(Date fechaContatacion) {
         this.fechaContatacion = fechaContatacion;
     }
-    public static Persona getPersona(int id){
+    /*public static Persona getPersona(int id){
         ConectarBase conexion =new ConectarBase();
         Persona per = new Persona();
         try (Connection con = conexion.conectarMySQL()) {
@@ -92,7 +92,7 @@ public class Persona {
             throwables.printStackTrace();
         }
         return per;
-    }
+    }*/
 
     public void insertarPersona(){
         try {

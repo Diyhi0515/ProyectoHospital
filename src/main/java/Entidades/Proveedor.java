@@ -53,7 +53,7 @@ public class Proveedor {
         this.direccion = direccion;
     }
   //Guardar datos de la tabla al objeto por medio del id
-    public static Proveedor getProveedor(int id){
+    /*public static Proveedor getProveedor(int id){
         ConectarBase conexion =new ConectarBase();
         Proveedor buscado=new Proveedor();
         try (Connection con = conexion.conectarMySQL()) {
@@ -72,7 +72,7 @@ public class Proveedor {
             throwables.printStackTrace();
         }
         return buscado;
-    }
+    }*/
     //insertar datos a la tabla en la base
     public void insertarProveedor(){
         try {

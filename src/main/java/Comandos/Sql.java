@@ -1,12 +1,10 @@
 package Comandos;
 
 import Conexion.ConectarBase;
+import Entidades.*;
 import org.w3c.dom.NodeList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Sql {
 
@@ -84,6 +82,125 @@ public class Sql {
     }
 
 
+    //geters
+
+    public Persona getPersona(int id){
+        Persona per = new Persona();
+        try (Connection con = cb.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Persona WHERE ci = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                per.setCi(rs.getInt("ci"));
+                per.setNombre(rs.getString("nombre"));
+                per.setApellidoP(rs.getString("apellidoP"));
+                per.setApellidoM(rs.getString("apellidoM"));
+                per.setSalario(rs.getFloat("salario"));
+                per.setFechaContatacion(rs.getDate("fechaContratacion"));
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return per;
+    }
+    public  Proveedor getProveedor(int id){
+        Proveedor buscado=new Proveedor();
+        try (Connection con = cb.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Proveedor WHERE nit = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                buscado.setNit(rs.getInt("nit"));
+                buscado.setNombre(rs.getString("nombre"));
+                buscado.setContacto(rs.getInt("contacto"));
+                buscado.setDireccion(rs.getString("direccion"));
+
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return buscado;
+    }
+    public Administrador getAdministrador(int id){
+        Administrador ad = new Administrador();
+        try (Connection con = cb.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Administrador WHERE per_ci = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                ad.setPer_Ci(rs.getInt("per_ci"));
+                ad.setExperiencia(rs.getString("experiencia"));
+                ad.setCargo(rs.getString("cargo"));
+                ad.setResponsabilidad(rs.getString("responsabilidad"));
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return ad;
+    }
+    public Medico getMedico(int id){
+        Medico md = new Medico();
+            try (Connection con = cb.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Medico WHERE per_ci = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                md.setPer_Ci(rs.getInt("per_ci"));
+                md.setnLicMedica(rs.getInt("nLicMedica"));
+                md.setEspecialidad(rs.getString("especialidad"));
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return md;
+    }
+
+    public Departamento getDepartamento(int id){
+        Departamento dp =new Departamento();
+        try (Connection con = cb.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Departamento WHERE id = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                dp.setId(rs.getInt("id"));
+                dp.setTipoSala(rs.getString("tipoSala"));
+                dp.setPresupuesto(rs.getString("presupuesto"));
+                dp.setNumCamas(rs.getInt("numCamamas"));
+                dp.setCantPersonal(rs.getInt("cantPersonal"));
+                dp.setCi(rs.getInt("ad_per_ci"));
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return dp;
+    }
+    public EquipoMedico getEquipoMedico(int id){
+        EquipoMedico eqm =new EquipoMedico();
+        try (Connection con = cb.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM EquipoMedico WHERE cod = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                eqm.setCod(rs.getInt("cod"));
+                eqm.setMantenimiento(rs.getString("mantenimiento"));
+                eqm.setEstado(rs.getString("estado"));
+                eqm.setTipo(rs.getString("tipo"));
+                eqm.setFechaAdquisison(rs.getDate("fechaAdquisision"));
+                eqm.setDep_id(rs.getInt("dep_id"));
+                eqm.setProv_nit(rs.getInt("prov_nit"));
+
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return eqm;
+    }
 
     public static void main(String[] args) {
 
