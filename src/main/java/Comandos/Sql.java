@@ -166,16 +166,31 @@ public class Sql {
         return buscado;
     }
 
-    public void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
-        String c = "UPDATE " +tabla  +"\n" + "SET "+ atributo +" = "+ cambio +"\n" +" where " +nomllave + " = " +llave;
+    /*public void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
+        String c = "UPDATE " +tabla  +"\n" + "SET " +atributo +" = "+cambio+"\n" +" where " +nomllave + " = " +llave;
         //"UPDATE Persona  \n" + SET apellidoM = ?   where ci = ?"
         cb.ejecutarSQL(c);
-    }
+    }*/
 
     public void eliminar(int id, String tabla, String nomLlave){
         //"delete from Proveedor where nit = ?");
-        String c = "delete from " + tabla +" where " +nomLlave +" = " +id;
+        String c = "delete from "+ tabla +" where " +nomLlave +" = " +id;
         cb.ejecutarSQL(c);
+    }
+    public void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
+        try {
+            String s = "UPDATE "+ tabla  +"\n" +
+                    "   SET "+ atributo+ " = " +  cambio +" where "+nomllave +" = " +llave;
+            PreparedStatement ps = cb.conectarMySQL().prepareStatement(s);
+            /*ps.setString(1, tabla);
+            ps.setString(2, atributo);
+            ps.setString(3, cambio);
+            ps.setString(4, nomllave);
+            ps.setInt(5,llave);*/
+            ps.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
     public static void main(String[] args) {
 
