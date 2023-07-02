@@ -134,7 +134,7 @@ public class Frame extends JFrame implements ActionListener {
             int y = 40;
             for (int i = 0; i < listaAtributos.length; i++) {
                 atributos[i] = new JTextField();
-                atributosNombres[i] = new JLabel(listaAtributos[i] + ": ", SwingConstants.RIGHT);
+                atributosNombres[i] = new JLabel(listaAtributos[i], SwingConstants.RIGHT);
                 add(atributos[i]);
                 add(atributosNombres[i]);
                 atributos[i].setBounds(130, (i + 1) * y, 70, 20);
@@ -144,7 +144,7 @@ public class Frame extends JFrame implements ActionListener {
             int y = 40;
             for (int i = 0; i < 7; i++) {
                 atributos[i] = new JTextField();
-                atributosNombres[i] = new JLabel(listaAtributos[i] + ": ", SwingConstants.RIGHT);
+                atributosNombres[i] = new JLabel(listaAtributos[i], SwingConstants.RIGHT);
                 add(atributos[i]);
                 add(atributosNombres[i]);
                 atributos[i].setBounds(130, (i + 1) * y, 70, 20);
@@ -153,7 +153,7 @@ public class Frame extends JFrame implements ActionListener {
             int cont = 0;
             for (int i = 7; i < listaAtributos.length; i++) {
                 atributos[i] = new JTextField();
-                atributosNombres[i] = new JLabel(listaAtributos[i] + ": ", SwingConstants.RIGHT);
+                atributosNombres[i] = new JLabel(listaAtributos[i] , SwingConstants.RIGHT);
                 add(atributos[i]);
                 add(atributosNombres[i]);
                 atributos[i].setBounds(300, (cont + 1) * y, 70, 20);
@@ -237,7 +237,11 @@ public class Frame extends JFrame implements ActionListener {
                 if ((entidades.getSelectedItem()).equals("Administrador")){
                     for (int i = 1; i < temporal.length; i++) {
                         if(!Objects.equals(temporal[i], "")){
-                            Sql.modificar("Administrador", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                            if(i<=6) {
+                                Sql.modificar("Persona", "ci", Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                            }else {
+                                Sql.modificar("Administrador", temporal2[0], Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                            }
                         }
                     }
                 }
@@ -265,7 +269,11 @@ public class Frame extends JFrame implements ActionListener {
                 if ((entidades.getSelectedItem()).equals("Farmaceutico")){
                     for (int i = 1; i < temporal.length; i++) {
                         if(!Objects.equals(temporal[i], "")){
-                            Sql.modificar("Farmaceutico", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                            if(i<=6) {
+                                Sql.modificar("Persona", "ci", Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                            }else {
+                                Sql.modificar("Farmaceutico", temporal2[0], Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                            }
                         }
                     }
                 }
@@ -279,7 +287,11 @@ public class Frame extends JFrame implements ActionListener {
                 if ((entidades.getSelectedItem()).equals("Medico")){
                     for (int i = 1; i < temporal.length; i++) {
                         if(!Objects.equals(temporal[i], "")){
-                            Sql.modificar("Medico", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                            if(i<=6) {
+                                Sql.modificar("Persona", "ci", Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                            }else {
+                                Sql.modificar("Medico", temporal2[0], Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                            }
                         }
                     }
                 }
