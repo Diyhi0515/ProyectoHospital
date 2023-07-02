@@ -1,6 +1,7 @@
 package Comandos;
 
 import Conexion.ConectarBase;
+import Entidades.Persona;
 import org.w3c.dom.NodeList;
 
 import javax.swing.*;
@@ -122,6 +123,27 @@ public class Sql {
             return null;
         }
     }
+    public Persona getPersona(int id){
+        ConectarBase conexion =new ConectarBase();
+        Persona per = new Persona();
+        try (Connection con = conexion.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Persona WHERE ci = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                per.setCi(rs.getInt("ci"));
+                per.setNombre(rs.getString("nombre"));
+                per.setApellidoP(rs.getString("apellidoP"));
+                per.setApellidoM(rs.getString("apellidoM"));
+                per.setSalario(rs.getFloat("salario"));
+                per.setFechaContatacion(rs.getDate("fechaContratacion"));
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return per;
+    }
 
     public void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
         String c = "UPDATE " +tabla  +"\n" + "SET "+ atributo +" = "+ cambio +"\n" +" where " +nomllave + " = " +llave;
@@ -129,7 +151,11 @@ public class Sql {
         cb.ejecutarSQL(c);
     }
 
-
+    public void eliminar(int id, String tabla, String nomLlave){
+        //"delete from Proveedor where nit = ?");
+        String c = "delete from" + tabla +" where " +nomLlave +" = " +id;
+        cb.ejecutarSQL(c);
+    }
     public static void main(String[] args) {
 
 

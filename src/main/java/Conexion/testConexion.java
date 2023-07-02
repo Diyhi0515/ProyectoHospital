@@ -1,12 +1,13 @@
 package Conexion;
 
+import Comandos.Sql;
 import Entidades.Administrador;
 import Entidades.Proveedor;
 
 public class testConexion {
     public static void main(String[] args) {
-        ConectarBase cb = new ConectarBase();
-        cb.conectarMySQL();
+        /*ConectarBase cb = new ConectarBase();
+        cb.conectarMySQL();*/
         //Proveedor pv = Proveedor.getProveedor(123);
         //System.out.println(pv);
         /*Proveedor pv2 = new Proveedor(124, "Bagó", 335633, "Calle Equipetrol");
@@ -19,6 +20,10 @@ public class testConexion {
         //pv.modificarContacto(124, 311122);
         //pv.modificarDireccion(124, "Calle Tartagal");
         //System.out.println(Proveedor.getProveedor(124));
-        System.out.println(Administrador.getAdministrador(1));
+        //System.out.println(Administrador.getAdministrador(1));
+        Sql s = new Sql();
+        System.out.println(s.getPersona(1));
+        s.eliminar(1,"Persona", "ci");
+        System.out.println(s.getPersona(1));
     }
 }

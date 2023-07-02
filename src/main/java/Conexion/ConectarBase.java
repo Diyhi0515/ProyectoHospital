@@ -9,7 +9,7 @@ public class ConectarBase {
     private String user = "root";
 
     //Le cambie el pass de 150503 a root
-    private String pass = "root";
+    private String pass = "150503";
             //"toor";
 
     public Connection conectarMySQL() {
