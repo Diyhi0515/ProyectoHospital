@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class Frame extends JFrame implements ActionListener {
 
@@ -133,7 +134,7 @@ public class Frame extends JFrame implements ActionListener {
         int y = 40;
         for (int i = 0; i < listaAtributos.length; i++) {
             atributos[i] = new JTextField();
-            atributosNombres[i] = new JLabel(listaAtributos[i]+": ", SwingConstants. RIGHT);
+            atributosNombres[i] = new JLabel(listaAtributos[i], SwingConstants. RIGHT);
             add(atributos[i]);
             add(atributosNombres[i]);
             atributos[i].setBounds(130,(i+1)*y,70,20);
@@ -184,6 +185,66 @@ public class Frame extends JFrame implements ActionListener {
                 }
                 if ((entidades.getSelectedItem()).equals("Entrega")){
                     Sql.insertEntrega(temporal);
+                }
+
+
+                try {
+                    actualizarTabla((String)entidades.getSelectedItem());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+        });
+        btnModificar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String[] temporal = new String[atributos.length];
+                String[] temporal2 = new String[atributosNombres.length];
+                for (int i = 0; i < atributos.length; i++) {
+                    temporal2[i] = atributosNombres[i].getText();
+                    temporal[i] = atributos[i].getText();
+                }
+                if ((entidades.getSelectedItem()).equals("Proveedor")){
+                    for (int i = 1; i < temporal.length; i++) {
+                       if(!Objects.equals(temporal[i], "")){
+                           Sql.modificar("Proveedor", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                       }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Administrador")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Departamento")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("EquipoMedico")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Sala")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Farmaceutico")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Certificaciones")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Medico")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Asignado")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Medicamento")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Ingredientes")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Entrega")){
+
                 }
 
 
