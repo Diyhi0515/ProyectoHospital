@@ -113,10 +113,22 @@ public class Sql {
     }
 
 
+
+
     public static JTable consultaTotal(String tableName) throws SQLException {
         String query = "SELECT * FROM " + tableName;
+        if (tableName.equals("Administrador")){
+            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.experiencia,a.cargo,a.responsabilidad FROM Administrador a JOIN Persona p ON a.per_ci = p.ci;" ;
+        }
+        if (tableName.equals("Medico")){
+            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.nLicMedica,a.especialidad FROM Medico a JOIN Persona p ON a.per_ci = p.ci;" ;
+        }
+        if (tableName.equals("Farmaceutico")){
+            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.horario FROM Farmaceutico a JOIN Persona p ON a.per_ci = p.ci;" ;
+        }
         Statement st = cn.createStatement();
         ResultSet resultSet = st.executeQuery(query);
+
 
         try {
             ResultSetMetaData metaData = resultSet.getMetaData();
