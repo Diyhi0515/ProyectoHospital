@@ -333,6 +333,11 @@ public class Sql {
         String c = "delete from " + tabla +" where " +nomLlave +" = " +id;
         cb.ejecutarSQL(c);
     }
+    public static void eliminarPorNombre(String nombre, String tabla, String nomLlave){
+        //"delete from Proveedor where nit = ?");
+        String c = "delete from " + tabla +" where " +nomLlave +" = '"  +nombre +"'";
+        cb.ejecutarSQL(c);
+    }
     public static void main(String[] args) {
        // modificar("proveedor", "nit", 9182, "nombre", "Favio");
     }
