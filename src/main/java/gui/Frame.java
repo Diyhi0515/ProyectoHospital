@@ -156,34 +156,34 @@ public class Frame extends JFrame implements ActionListener {
 
                 }
                 if ((entidades.getSelectedItem()).equals("Departamento")){
-
+                    Sql.insertDepartamento(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("EquipoMedico")){
-
+                    Sql.insertEquipoMedico(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Sala")){
-
+                    Sql.insertSala(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Farmaceutico")){
 
                 }
                 if ((entidades.getSelectedItem()).equals("Certificaciones")){
-
+                    Sql.insertCertificaciones(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Medico")){
 
                 }
                 if ((entidades.getSelectedItem()).equals("Asignado")){
-
+                    Sql.insertAsignado(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Medicamento")){
-
+                    Sql.insertMedicamento(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Ingredientes")){
-
+                    Sql.insertIngredientes(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Entrega")){
-
+                    Sql.insertEntrega(temporal);
                 }
 
 

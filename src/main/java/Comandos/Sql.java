@@ -36,18 +36,19 @@ public class Sql {
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertDepartamento(int id, String tipoSala, String presupuesto, int numCamas, int cantPersonal, int adPerCi) {
-        String sql = "INSERT INTO Departamento VALUES(" + id + ", '" + tipoSala + "', '" + presupuesto + "', " + numCamas + ", " + cantPersonal + ", " + adPerCi + ")";
+    public static void insertDepartamento(String[] valores) {
+        String sql = "INSERT INTO Departamento VALUES(" + valores[0] + ", '" + valores[1] + "', '" + valores[2] + "', " + valores[3] + ", " + valores[4] + ", " + valores[5] + ")";
+        System.out.println(sql);
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertEquipoMedico(int cod, String mantenimiento, String estado, String tipo, String fechaAdquisicion, int depId, int provNit) {
-        String sql = "INSERT INTO EquipoMedico VALUES(" + cod + ", '" + mantenimiento + "', '" + estado + "', '" + tipo + "', '" + fechaAdquisicion + "', " + depId + ", " + provNit + ")";
+    public static void insertEquipoMedico(String[] valores) {
+        String sql = "INSERT INTO EquipoMedico VALUES(" + valores[0] + ", '" + valores[1] + "', '" + valores[2] + "', '" + valores[3] + "', '" + valores[4] + "', " + valores[5] + ", " + valores[6] + ")";
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertSala(int numHabitacion, String estadoLimpieza, String disponibilidad, int depId) {
-        String sql = "INSERT INTO Sala VALUES(" + numHabitacion + ", '" + estadoLimpieza + "', '" + disponibilidad + "', " + depId + ")";
+    public static void insertSala(String[] valores) {
+        String sql = "INSERT INTO Sala VALUES(" + valores[0] + ", '" + valores[1] + "', '" + valores[2] + "', " + valores[3] + ")";
         cb.ejecutarSQL(sql);
     }
 
@@ -57,8 +58,8 @@ public class Sql {
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertCertificaciones(int farmPerCi, String certificacion) {
-        String sql = "INSERT INTO Certificaciones VALUES(" + farmPerCi + ", '" + certificacion + "')";
+    public static void insertCertificaciones(String[] valores) {
+        String sql = "INSERT INTO Certificaciones VALUES(" + valores[0] + ", '" + valores[1] + "')";
         cb.ejecutarSQL(sql);
     }
 
@@ -68,23 +69,23 @@ public class Sql {
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertAsignado(int medPerCi, int depId) {
-        String sql = "INSERT INTO Asignado VALUES(" + medPerCi + ", " + depId + ")";
+    public static void insertAsignado(String[] valores) {
+        String sql = "INSERT INTO Asignado VALUES(" + valores[0] + ", " + valores[1] + ")";
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertMedicamento(int id, String nombre, String tipo) {
-        String sql = "INSERT INTO Medicamento VALUES(" + id + ", '" + nombre + "', '" + tipo + "')";
+    public static void insertMedicamento(String[] valores) {
+        String sql = "INSERT INTO Medicamento VALUES(" + valores[0] + ", '" + valores[1] + "', '" + valores[2] + "')";
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertIngredientes(int medId, String ingrediente) {
-        String sql = "INSERT INTO Ingredientes VALUES(" + medId + ", '" + ingrediente + "')";
+    public static void insertIngredientes(String[] valores) {
+        String sql = "INSERT INTO Ingredientes VALUES(" + valores[0] + ", '" + valores[1] + "')";
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertEntrega(int provNit, int medId, float precio, int cantidad) {
-        String sql = "INSERT INTO Entrega VALUES(" + provNit + ", " + medId + ", " + precio + ", " + cantidad + ")";
+    public static void insertEntrega(String[] valores) {
+        String sql = "INSERT INTO Entrega VALUES(" + valores[0] + ", " + valores[1] + ", " + valores[2] + ", " + valores[3] + ")";
         cb.ejecutarSQL(sql);
     }
 
