@@ -33,14 +33,16 @@ public class Frame extends JFrame implements ActionListener {
 
     public Frame() throws SQLException {
 
-        panelConsultas = new JPanel();
-        panelConsultas.setSize(600,300);
+        panelConsultas = new JPanel(new BorderLayout());
+        panelConsultas.setSize(590,300);
         panelConsultas.setBackground(Color.PINK);
         add(panelConsultas);
         panelConsultas.setLocation(0,300);
 
         jTable = Sql.consultaTotal("proveedor");
+        jTable.setPreferredSize(new Dimension(300,300));
         consultas = new JScrollPane(jTable);
+
 
 
         JLabel titulo1 = new JLabel("Atributos");
@@ -62,7 +64,6 @@ public class Frame extends JFrame implements ActionListener {
         crearComboBox();
         inicializarBotones();
         botones();
-        setBackground(Color.PINK);
         selectedRow();
         iniciarPantalla();
 
@@ -94,6 +95,8 @@ public class Frame extends JFrame implements ActionListener {
             }
         });
     }
+
+
 
     private void declararMenu(){
         menuBarra = new JMenuBar();
@@ -234,7 +237,11 @@ public class Frame extends JFrame implements ActionListener {
                 try {
                     actualizarTabla((String)entidades.getSelectedItem());
                 } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+
+                    JOptionPane.showMessageDialog(panelConsultas,
+                            e,
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -349,6 +356,10 @@ public class Frame extends JFrame implements ActionListener {
                 try {
                     actualizarTabla((String)entidades.getSelectedItem());
                 } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(panelConsultas,
+                            e,
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     throw new RuntimeException(ex);
                 }
             }
@@ -404,6 +415,10 @@ public class Frame extends JFrame implements ActionListener {
                 try {
                     actualizarTabla((String)entidades.getSelectedItem());
                 } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(panelConsultas,
+                            e,
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     throw new RuntimeException(ex);
                 }
             }
@@ -426,7 +441,7 @@ public class Frame extends JFrame implements ActionListener {
         entidades.addItem("Ingredientes");
         entidades.addItem("Entrega");
         add(entidades);
-        entidades.setBounds(250,200,130,30);
+        entidades.setBounds(450,220,130,30);
 
         entidades.addActionListener(new ActionListener() {
             @Override
