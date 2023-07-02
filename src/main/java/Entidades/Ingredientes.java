@@ -1,12 +1,13 @@
 package Entidades;
 
-public class Ingredientes {
+public class Ingredientes{
     private int id;
     private String ingredientes;
     public Ingredientes(int id, String ingredientes){
         this.id = id;
         this.ingredientes = ingredientes;
     }
+
 
     public int getId() {
         return id;
