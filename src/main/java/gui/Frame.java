@@ -30,9 +30,9 @@ public class Frame extends JFrame implements ActionListener {
 
     private JMenu menuArchivo;
     private JMenuItem itemSalir;
+    private JLabel jLabel1;
 
     public Frame() throws SQLException {
-
         panelConsultas = new JPanel(new BorderLayout());
         panelConsultas.setSize(780,300);
         panelConsultas.setBackground(Color.PINK);
@@ -68,6 +68,8 @@ public class Frame extends JFrame implements ActionListener {
         iniciarPantalla();
 
     }
+
+
     private void iniciarPantalla() {
         setLayout(null);
         setTitle("Hospital");
