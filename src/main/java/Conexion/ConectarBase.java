@@ -7,6 +7,8 @@ public class ConectarBase {
     private String port = "3306";
     private String database = "Hospital";
     private String user = "root";
+
+    //Le cambie el pass de 150503 a root
     private String pass = "150503";
             //"toor";
 
