@@ -1,6 +1,7 @@
 package Comandos;
 
 import Conexion.ConectarBase;
+import Entidades.Medico;
 import Entidades.Persona;
 import Entidades.Proveedor;
 import org.w3c.dom.NodeList;
@@ -147,6 +148,8 @@ public class Sql {
             return null;
         }
     }
+
+    //Getters de entidades
     public Persona getPersona(int id){
         ConectarBase conexion =new ConectarBase();
         Persona per = new Persona();
@@ -169,9 +172,8 @@ public class Sql {
         return per;
     }
     public Proveedor getProveedor(int id){
-        ConectarBase conexion =new ConectarBase();
         Proveedor buscado=new Proveedor();
-        try (Connection con = conexion.conectarMySQL()) {
+        try (Connection con = cb.conectarMySQL()) {
             PreparedStatement consulta = con.prepareStatement("SELECT * FROM Proveedor WHERE nit = ?");
             consulta.setInt(1,id);
             ResultSet rs=consulta.executeQuery();
@@ -188,7 +190,24 @@ public class Sql {
         }
         return buscado;
     }
-
+    public  Medico getMedico(int id){
+        Medico md = new Medico();
+        try (Connection con = cb.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Medico WHERE per_ci = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                md.setPer_Ci(rs.getInt("per_ci"));
+                md.setnLicMedica(rs.getInt("nLicMedica"));
+                md.setEspecialidad(rs.getString("especialidad"));
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return md;
+    }
+    //Modificar atributo
     public static void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
         boolean isNumeric = (cambio != null && cambio.matches("[0-9]+"));
         String c = "";
