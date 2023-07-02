@@ -193,6 +193,7 @@ public class Sql {
         boolean isNumeric = (cambio != null && cambio.matches("[0-9]+"));
         String c = "";
         if(isNumeric){
+            //modifica numeros
             c = "UPDATE " + tabla + " SET " + atributo + " = " + cambio + " where " + nomllave + " = " + llave;
         }else {
             //solo se puede editar atributos string
