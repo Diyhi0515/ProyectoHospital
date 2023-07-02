@@ -84,6 +84,29 @@ public class Sql {
         cb.ejecutarSQL(sql);
     }
 
+    public static String[] getAtributos(String tableName) throws SQLException {
+
+        String query = "SELECT * FROM " + tableName;
+        Statement st = cn.createStatement();
+        ResultSet resultSet = st.executeQuery(query);
+
+        try {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            String[] str = new String[columnCount];
+            for (int i = 1; i <= columnCount; ++i) {
+                String columnName = metaData.getColumnName(i);
+                str[i-1] = columnName;
+            }
+            return str;
+        }catch (SQLException var11) {
+            var11.printStackTrace();
+            return null;
+        }
+
+    }
+
 
     public static JTable consultaTotal(String tableName) throws SQLException {
         String query = "SELECT * FROM " + tableName;

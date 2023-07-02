@@ -87,6 +87,7 @@ public class Medico extends Persona{
             throw new RuntimeException(e);
         }
     }
+
     public void modificarEspecialidad(int ci, String n){
         ConectarBase con = new ConectarBase();
         try {
