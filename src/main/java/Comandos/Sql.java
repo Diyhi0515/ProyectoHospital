@@ -3,10 +3,9 @@ package Comandos;
 import Conexion.ConectarBase;
 import org.w3c.dom.NodeList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.sql.*;
 
 public class Sql {
 
@@ -81,6 +80,47 @@ public class Sql {
     public static void insertEntrega(int provNit, int medId, float precio, int cantidad) {
         String sql = "INSERT INTO Entrega VALUES(" + provNit + ", " + medId + ", " + precio + ", " + cantidad + ")";
         cb.ejecutarSQL(sql);
+    }
+
+
+    public static JTable consultaTotal(String tableName) throws SQLException {
+        String query = "SELECT * FROM " + tableName;
+        Statement st = cn.createStatement();
+        ResultSet resultSet = st.executeQuery(query);
+
+        try {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            JTable jTable = new JTable(0, 0);
+            DefaultTableModel tblModel = (DefaultTableModel)jTable.getModel();
+
+            for(int i = 1; i <= columnCount; ++i) {
+                String columnName = metaData.getColumnName(i);
+                tblModel.addColumn(columnName);
+                System.out.print(columnName + "\t");
+            }
+
+            System.out.println();
+
+            while(resultSet.next()) {
+                String[] tbdatos = new String[columnCount];
+
+                for(int i = 1; i <= columnCount; ++i) {
+                    String columnValue = resultSet.getString(i);
+                    tbdatos[i - 1] = columnValue;
+                    System.out.print(columnValue + "\t");
+                }
+
+                tblModel.addRow(tbdatos);
+                System.out.println();
+            }
+
+            resultSet.close();
+            return new JTable(tblModel);
+        } catch (SQLException var11) {
+            var11.printStackTrace();
+            return null;
+        }
     }
 
 

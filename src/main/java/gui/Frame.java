@@ -10,7 +10,7 @@ public class Frame extends JFrame {
 
     JTable jTable;
     public Frame() throws SQLException {
-        jTable = Sql.consultaTotal("Medico");
+        jTable = Sql.consultaTotal("proveedor");
         add(jTable);
         add(new JScrollPane(jTable)).setBounds(50,50, 300, 300);
         iniciarPantalla();

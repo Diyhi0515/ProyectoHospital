@@ -19,6 +19,6 @@ public class testConexion {
         //pv.modificarContacto(124, 311122);
         //pv.modificarDireccion(124, "Calle Tartagal");
         //System.out.println(Proveedor.getProveedor(124));
-        System.out.println(Administrador.getAdministrador(1));
+        //System.out.println(Administrador.getAdministrador(1));
     }
 }
