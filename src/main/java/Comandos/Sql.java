@@ -309,11 +309,14 @@ public class Sql {
         return eqm;
     }
     //Modificar atributo
-    public static void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
+    public static void modificar(String tabla, String nomllave, int llave, String atributo, String cambio) {
         boolean isNumeric = (cambio != null && cambio.matches("[0-9]+"));
+        boolean isFecha = (cambio != null && cambio.matches("^\\d{4}-\\d{2}-\\d{2}$"));
         String c = "";
-        if(isNumeric){
+        if (isNumeric) {
             //modifica numeros
+            c = "UPDATE " + tabla + " SET " + atributo + " = " + cambio + " where " + nomllave + " = " + llave;
+        }else if (isFecha){
             c = "UPDATE " + tabla + " SET " + atributo + " = " + cambio + " where " + nomllave + " = " + llave;
         }else {
             //solo se puede editar atributos string
