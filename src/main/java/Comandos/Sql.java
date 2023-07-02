@@ -191,6 +191,7 @@ public class Sql {
 
     public static void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
         //solo se puede editar atributos string
+        //TODO hacer que detecte si es un numero
         String c = "UPDATE " + tabla + " SET " + atributo + " = '" + cambio + "' where " + nomllave + " = " + llave;
         //"UPDATE Persona  \n" + SET apellidoM = ?   where ci = ?"
         cb.ejecutarSQL(c);
