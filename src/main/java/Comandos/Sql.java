@@ -1,7 +1,9 @@
 package Comandos;
 
 import Conexion.ConectarBase;
+
 import Entidades.*;
+
 import org.w3c.dom.NodeList;
 
 import javax.swing.*;
@@ -18,8 +20,8 @@ public class Sql {
 
     }
 
-    public static void insertProveedor(int nit, String nombre, int contacto, String direccion) {
-        String sql = "INSERT INTO Proveedor VALUES(" + nit + ", '" + nombre + "', " + contacto + ", '" + direccion + "')";
+    public static void insertProveedor(String[] valores) {
+        String sql = "INSERT INTO Proveedor VALUES(" + valores[0] + ", '" + valores[1] + "', " + valores[2] + ", '" + valores[3] + "')";
         cb.ejecutarSQL(sql);
     }
 

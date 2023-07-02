@@ -58,6 +58,7 @@ public class Frame extends JFrame implements ActionListener {
         actualizarAtributos("proveedor");
         panelConsultas.add(consultas);
         inicializarBotones();
+        botones();
         setBackground(Color.PINK);
         iniciarPantalla();
 
@@ -143,7 +144,54 @@ public class Frame extends JFrame implements ActionListener {
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String[] temporal = new String[atributos.length];
+                for (int i = 0; i < atributos.length; i++) {
+                    temporal[i] = atributos[i].getText();
+                }
+                System.out.println("sirve");
+                if ((entidades.getSelectedItem()).equals("Proveedor")){
+                    Sql.insertProveedor(temporal);
+                }
+                if ((entidades.getSelectedItem()).equals("Administrador")){
 
+                }
+                if ((entidades.getSelectedItem()).equals("Departamento")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("EquipoMedico")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Sala")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Farmaceutico")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Certificaciones")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Medico")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Asignado")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Medicamento")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Ingredientes")){
+
+                }
+                if ((entidades.getSelectedItem()).equals("Entrega")){
+
+                }
+
+
+                try {
+                    actualizarTabla((String)entidades.getSelectedItem());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
     }
