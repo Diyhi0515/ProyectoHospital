@@ -25,14 +25,14 @@ public class Sql {
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertPersona(int ci, String nombre, String apellidoP, String apellidoM, int salario, String fechaContratacion) {
+    public static void insertPersona(String ci, String nombre, String apellidoP, String apellidoM, String salario, String fechaContratacion) {
         String sql = "INSERT INTO Persona VALUES(" + ci + ", '" + nombre + "', '" + apellidoP + "', '" + apellidoM + "', " + salario + ", '" + fechaContratacion + "')";
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertAdministrador(int perCi, String nombre, String apellidoP, String apellidoM, int salario, String fechaContratacion, String experiencia, String cargo, String responsabilidad) {
-        String sql = "INSERT INTO Administrador VALUES(" + perCi + ", '" + experiencia + "', '" + cargo + "', '" + responsabilidad + "')";
-        insertPersona(perCi,nombre, apellidoP, apellidoM, salario, fechaContratacion);
+    public static void insertAdministrador(String[] valores) {
+        insertPersona(valores[0],valores[1], valores[2], valores[3], valores[4], valores[5]);
+        String sql = "INSERT INTO Administrador VALUES(" + valores[0] + ", '" + valores[6] + "', '" + valores[7] + "', '" + valores[8] + "')";
         cb.ejecutarSQL(sql);
     }
 
@@ -52,9 +52,9 @@ public class Sql {
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertFarmaceutico(int perCi, String nombre, String apellidoP, String apellidoM, int salario, String fechaContratacion,  String horario) {
-        String sql = "INSERT INTO Farmaceutico VALUES(" + perCi + ", '" + horario + "')";
-        insertPersona(perCi,nombre, apellidoP, apellidoM, salario, fechaContratacion);
+    public static void insertFarmaceutico(String[] valores) {
+        insertPersona(valores[0],valores[1], valores[2], valores[3], valores[4], valores[5]);
+        String sql = "INSERT INTO Farmaceutico VALUES(" + valores[0] + ", '" + valores[6] + "')";
         cb.ejecutarSQL(sql);
     }
 
@@ -63,9 +63,9 @@ public class Sql {
         cb.ejecutarSQL(sql);
     }
 
-    public static void insertMedico(int perCi, String nombre, String apellidoP, String apellidoM, int salario, String fechaContratacion,  int nLicMedica, String especialidad) {
-        String sql = "INSERT INTO Medico VALUES(" + perCi + ", " + nLicMedica + ", '" + especialidad + "')";
-        insertPersona(perCi,nombre, apellidoP, apellidoM, salario, fechaContratacion);
+    public static void insertMedico(String[] valores) {
+        insertPersona(valores[0],valores[1], valores[2], valores[3], valores[4], valores[5]);
+        String sql = "INSERT INTO Medico VALUES(" + valores[0] + ", " + valores[6] + ", '" + valores[7] + "')";
         cb.ejecutarSQL(sql);
     }
 
@@ -92,6 +92,15 @@ public class Sql {
     public static String[] getAtributos(String tableName) throws SQLException {
 
         String query = "SELECT * FROM " + tableName;
+        if (tableName.equals("Administrador")){
+            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.experiencia,a.cargo,a.responsabilidad FROM Administrador a JOIN Persona p ON a.per_ci = p.ci;" ;
+        }
+        if (tableName.equals("Medico")){
+            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.nLicMedica,a.especialidad FROM Medico a JOIN Persona p ON a.per_ci = p.ci;" ;
+        }
+        if (tableName.equals("Farmaceutico")){
+            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.horario FROM Farmaceutico a JOIN Persona p ON a.per_ci = p.ci;" ;
+        }
         Statement st = cn.createStatement();
         ResultSet resultSet = st.executeQuery(query);
 

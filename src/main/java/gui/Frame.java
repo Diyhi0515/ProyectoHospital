@@ -129,15 +129,36 @@ public class Frame extends JFrame implements ActionListener {
         atributos = new JTextField[listaAtributos.length];
         atributosNombres = new JLabel[listaAtributos.length];
 
-
-        int y = 40;
-        for (int i = 0; i < listaAtributos.length; i++) {
-            atributos[i] = new JTextField();
-            atributosNombres[i] = new JLabel(listaAtributos[i]+": ", SwingConstants. RIGHT);
-            add(atributos[i]);
-            add(atributosNombres[i]);
-            atributos[i].setBounds(130,(i+1)*y,70,20);
-            atributosNombres[i].setBounds(10,(i+1)*y,120,20);
+        if (listaAtributos.length<7) {
+            int y = 40;
+            for (int i = 0; i < listaAtributos.length; i++) {
+                atributos[i] = new JTextField();
+                atributosNombres[i] = new JLabel(listaAtributos[i] + ": ", SwingConstants.RIGHT);
+                add(atributos[i]);
+                add(atributosNombres[i]);
+                atributos[i].setBounds(130, (i + 1) * y, 70, 20);
+                atributosNombres[i].setBounds(10, (i + 1) * y, 120, 20);
+            }
+        }else {
+            int y = 40;
+            for (int i = 0; i < 7; i++) {
+                atributos[i] = new JTextField();
+                atributosNombres[i] = new JLabel(listaAtributos[i] + ": ", SwingConstants.RIGHT);
+                add(atributos[i]);
+                add(atributosNombres[i]);
+                atributos[i].setBounds(130, (i + 1) * y, 70, 20);
+                atributosNombres[i].setBounds(10, (i + 1) * y, 120, 20);
+            }
+            int cont = 0;
+            for (int i = 7; i < listaAtributos.length; i++) {
+                atributos[i] = new JTextField();
+                atributosNombres[i] = new JLabel(listaAtributos[i] + ": ", SwingConstants.RIGHT);
+                add(atributos[i]);
+                add(atributosNombres[i]);
+                atributos[i].setBounds(300, (cont + 1) * y, 70, 20);
+                atributosNombres[i].setBounds(180, (cont + 1) * y, 120, 20);
+                cont++;
+            }
         }
     }
     public void botones(){
@@ -153,7 +174,7 @@ public class Frame extends JFrame implements ActionListener {
                     Sql.insertProveedor(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Administrador")){
-
+                    Sql.insertAdministrador(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Departamento")){
                     Sql.insertDepartamento(temporal);
@@ -165,13 +186,13 @@ public class Frame extends JFrame implements ActionListener {
                     Sql.insertSala(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Farmaceutico")){
-
+                    Sql.insertFarmaceutico(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Certificaciones")){
                     Sql.insertCertificaciones(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Medico")){
-
+                    Sql.insertMedico(temporal);
                 }
                 if ((entidades.getSelectedItem()).equals("Asignado")){
                     Sql.insertAsignado(temporal);
