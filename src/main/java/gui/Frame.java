@@ -166,6 +166,7 @@ public class Frame extends JFrame implements ActionListener {
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Copia los atributos
                 String[] temporal = new String[atributos.length];
                 for (int i = 0; i < atributos.length; i++) {
                     temporal[i] = atributos[i].getText();
