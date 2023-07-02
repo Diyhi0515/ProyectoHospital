@@ -3,6 +3,8 @@ package gui;
 import Comandos.Sql;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -40,7 +42,6 @@ public class Frame extends JFrame implements ActionListener {
         jTable = Sql.consultaTotal("proveedor");
         consultas = new JScrollPane(jTable);
 
-        crearComboBox();
 
         JLabel titulo1 = new JLabel("Atributos");
         JLabel titulo2 = new JLabel("Acciones");
@@ -58,9 +59,11 @@ public class Frame extends JFrame implements ActionListener {
 
         actualizarAtributos("proveedor");
         panelConsultas.add(consultas);
+        crearComboBox();
         inicializarBotones();
         botones();
         setBackground(Color.PINK);
+        selectedRow();
         iniciarPantalla();
 
     }
@@ -72,6 +75,24 @@ public class Frame extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
+    }
+    public void updateSelected(int x){
+        for (int i = 0; i < atributos.length; i++) {
+            atributos[i].setText((String)(jTable.getModel().getValueAt(x,i)));
+        }
+    }
+    private void selectedRow(){
+
+        ListSelectionModel model = jTable.getSelectionModel();
+        model.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(! model.isSelectionEmpty()){
+                    int selectedRow = model.getMinSelectionIndex();
+                    updateSelected(selectedRow);
+                }
+            }
+        });
     }
 
     private void declararMenu(){
