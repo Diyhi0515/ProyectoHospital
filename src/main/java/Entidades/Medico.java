@@ -45,7 +45,7 @@ public class Medico extends Persona{
         this.especialidad = especialidad;
     }
 
-    /*public static Medico getMedico(int id){
+    public static Medico getMedico(int id){
         ConectarBase conexion =new ConectarBase();
         Medico md = new Medico();
         try (Connection con = conexion.conectarMySQL()) {
@@ -62,7 +62,7 @@ public class Medico extends Persona{
             throwables.printStackTrace();
         }
         return md;
-    }*/
+    }
     public void eliminarMedico(int id){
         ConectarBase con = new ConectarBase();
         try {

@@ -1,9 +1,10 @@
 package Comandos;
 
 import Conexion.ConectarBase;
-import Entidades.*;
 import org.w3c.dom.NodeList;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.sql.*;
 
 public class Sql {
@@ -82,276 +83,43 @@ public class Sql {
     }
 
 
-    //geters
+    public static JTable consultaTotal(String tableName) throws SQLException {
+        String query = "SELECT * FROM " + tableName;
+        Statement st = cn.createStatement();
+        ResultSet resultSet = st.executeQuery(query);
 
-    public Persona getPersona(int id){
-        Persona per = new Persona();
-        try (Connection con = cb.conectarMySQL()) {
-            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Persona WHERE ci = ?");
-            consulta.setInt(1,id);
-            ResultSet rs=consulta.executeQuery();
-            while(rs.next()){
-                per.setCi(rs.getInt("ci"));
-                per.setNombre(rs.getString("nombre"));
-                per.setApellidoP(rs.getString("apellidoP"));
-                per.setApellidoM(rs.getString("apellidoM"));
-                per.setSalario(rs.getFloat("salario"));
-                per.setFechaContatacion(rs.getDate("fechaContratacion"));
+        try {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+            JTable jTable = new JTable(0, 0);
+            DefaultTableModel tblModel = (DefaultTableModel)jTable.getModel();
+
+            for(int i = 1; i <= columnCount; ++i) {
+                String columnName = metaData.getColumnName(i);
+                tblModel.addColumn(columnName);
+                System.out.print(columnName + "\t");
             }
-            rs.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return per;
-    }
-    public  Proveedor getProveedor(int id){
-        Proveedor buscado=new Proveedor();
-        try (Connection con = cb.conectarMySQL()) {
-            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Proveedor WHERE nit = ?");
-            consulta.setInt(1,id);
-            ResultSet rs=consulta.executeQuery();
-            while(rs.next()){
-                buscado.setNit(rs.getInt("nit"));
-                buscado.setNombre(rs.getString("nombre"));
-                buscado.setContacto(rs.getInt("contacto"));
-                buscado.setDireccion(rs.getString("direccion"));
 
+            System.out.println();
+
+            while(resultSet.next()) {
+                String[] tbdatos = new String[columnCount];
+
+                for(int i = 1; i <= columnCount; ++i) {
+                    String columnValue = resultSet.getString(i);
+                    tbdatos[i - 1] = columnValue;
+                    System.out.print(columnValue + "\t");
+                }
+
+                tblModel.addRow(tbdatos);
+                System.out.println();
             }
-            rs.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return buscado;
-    }
-    public Administrador getAdministrador(int id){
-        Administrador ad = new Administrador();
-        try (Connection con = cb.conectarMySQL()) {
-            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Administrador WHERE per_ci = ?");
-            consulta.setInt(1,id);
-            ResultSet rs=consulta.executeQuery();
-            while(rs.next()){
-                ad.setPer_Ci(rs.getInt("per_ci"));
-                ad.setExperiencia(rs.getString("experiencia"));
-                ad.setCargo(rs.getString("cargo"));
-                ad.setResponsabilidad(rs.getString("responsabilidad"));
-            }
-            rs.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return ad;
-    }
-    public Medico getMedico(int id){
-        Medico md = new Medico();
-            try (Connection con = cb.conectarMySQL()) {
-            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Medico WHERE per_ci = ?");
-            consulta.setInt(1,id);
-            ResultSet rs=consulta.executeQuery();
-            while(rs.next()){
-                md.setPer_Ci(rs.getInt("per_ci"));
-                md.setnLicMedica(rs.getInt("nLicMedica"));
-                md.setEspecialidad(rs.getString("especialidad"));
-            }
-            rs.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return md;
-    }
 
-    public Departamento getDepartamento(int id){
-        Departamento dp =new Departamento();
-        try (Connection con = cb.conectarMySQL()) {
-            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Departamento WHERE id = ?");
-            consulta.setInt(1,id);
-            ResultSet rs=consulta.executeQuery();
-            while(rs.next()){
-                dp.setId(rs.getInt("id"));
-                dp.setTipoSala(rs.getString("tipoSala"));
-                dp.setPresupuesto(rs.getString("presupuesto"));
-                dp.setNumCamas(rs.getInt("numCamamas"));
-                dp.setCantPersonal(rs.getInt("cantPersonal"));
-                dp.setCi(rs.getInt("ad_per_ci"));
-            }
-            rs.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return dp;
-    }
-    public EquipoMedico getEquipoMedico(int id){
-        EquipoMedico eqm =new EquipoMedico();
-        try (Connection con = cb.conectarMySQL()) {
-            PreparedStatement consulta = con.prepareStatement("SELECT * FROM EquipoMedico WHERE cod = ?");
-            consulta.setInt(1,id);
-            ResultSet rs=consulta.executeQuery();
-            while(rs.next()){
-                eqm.setCod(rs.getInt("cod"));
-                eqm.setMantenimiento(rs.getString("mantenimiento"));
-                eqm.setEstado(rs.getString("estado"));
-                eqm.setTipo(rs.getString("tipo"));
-                eqm.setFechaAdquisison(rs.getDate("fechaAdquisision"));
-                eqm.setDep_id(rs.getInt("dep_id"));
-                eqm.setProv_nit(rs.getInt("prov_nit"));
-
-            }
-            rs.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return eqm;
-    }
-    public Sala getSala(int id){
-        Sala sl =new Sala();
-        try (Connection con = cb.conectarMySQL()) {
-            PreparedStatement consulta = con.prepareStatement("SELECT * FROM EquipoMedico WHERE cod = ?");
-            consulta.setInt(1,id);
-            ResultSet rs=consulta.executeQuery();
-            while(rs.next()){
-
-
-            }
-            rs.close();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return sl;
-    }
-
-    //Eliminar tabla
-
-    public void eliminarAdministrador(int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Administrador where per_ci = ?");
-            ps.setInt(1,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarPersona(int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Persona where ci = ?");
-            ps.setInt(1,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarProveedor(int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Proveedor where per_ci = ?");
-            ps.setInt(1,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarDepartamento(int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Departamento where id = ?");
-            ps.setInt(1,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarEquipoMedico(int id, int depId){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from EquipoMedico where cod = ? and dep_id = ?");
-            ps.setInt(1,id);
-            ps.setInt(2,depId);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarSala(int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Sala where numHabitacion = ?");
-            ps.setInt(1,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarFarmaceutico(int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Farmaceutico where per_ci = ?");
-            ps.setInt(1,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarCertificacion(int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Certificaciones where farm_per_ci = ?");
-            ps.setInt(1,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarMedico(int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Medico where per_ci = ?");
-            ps.setInt(1,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarAsignado(int ci, int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Asignado where med_per_ci = ? and dep_id = ?");
-            ps.setInt(1,ci);
-            ps.setInt(2,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarMedicamento(int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Medicamento where id = ?");
-            ps.setInt(1,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarIngrediente(int id, String ig){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Ingredientes where med_id = ? and ingrediente = ? ");
-            ps.setInt(1,id);
-            ps.setString(2, ig);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    public void eliminarEntrega(int nit, int id){
-        try {
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(
-                    "delete from Entrega where prov_nit = ? and med_id = ?");
-            ps.setInt(1,nit);
-            ps.setInt(2,id);
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            resultSet.close();
+            return new JTable(tblModel);
+        } catch (SQLException var11) {
+            var11.printStackTrace();
+            return null;
         }
     }
 
