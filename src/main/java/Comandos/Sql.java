@@ -84,6 +84,29 @@ public class Sql {
         cb.ejecutarSQL(sql);
     }
 
+    public static String[] getAtributos(String tableName) throws SQLException {
+
+        String query = "SELECT * FROM " + tableName;
+        Statement st = cn.createStatement();
+        ResultSet resultSet = st.executeQuery(query);
+
+        try {
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            int columnCount = metaData.getColumnCount();
+
+            String[] str = new String[columnCount];
+            for (int i = 1; i <= columnCount; ++i) {
+                String columnName = metaData.getColumnName(i);
+                str[i-1] = columnName;
+            }
+            return str;
+        }catch (SQLException var11) {
+            var11.printStackTrace();
+            return null;
+        }
+
+    }
+
 
     public static JTable consultaTotal(String tableName) throws SQLException {
         String query = "SELECT * FROM " + tableName;
@@ -166,35 +189,20 @@ public class Sql {
         return buscado;
     }
 
-    /*public void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
-        String c = "UPDATE " +tabla  +"\n" + "SET " +atributo +" = "+cambio+"\n" +" where " +nomllave + " = " +llave;
+    public static void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
+        //solo se puede editar atributos string
+        String c = "UPDATE " + tabla + " SET " + atributo + " = '" + cambio + "' where " + nomllave + " = " + llave;
         //"UPDATE Persona  \n" + SET apellidoM = ?   where ci = ?"
         cb.ejecutarSQL(c);
-    }*/
+    }
 
     public void eliminar(int id, String tabla, String nomLlave){
         //"delete from Proveedor where nit = ?");
-        String c = "delete from "+ tabla +" where " +nomLlave +" = " +id;
+        String c = "delete from " + tabla +" where " +nomLlave +" = " +id;
         cb.ejecutarSQL(c);
     }
-    public void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
-        try {
-            String s = "UPDATE "+ tabla  +"\n" +
-                    "   SET "+ atributo+ " = " +  cambio +" where "+nomllave +" = " +llave;
-            PreparedStatement ps = cb.conectarMySQL().prepareStatement(s);
-            /*ps.setString(1, tabla);
-            ps.setString(2, atributo);
-            ps.setString(3, cambio);
-            ps.setString(4, nomllave);
-            ps.setInt(5,llave);*/
-            ps.execute();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
     public static void main(String[] args) {
-
-
+        modificar("proveedor", "nit", 9182, "nombre", "Favio");
     }
 }
 
