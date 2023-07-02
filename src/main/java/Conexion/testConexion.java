@@ -22,8 +22,8 @@ public class testConexion {
         //System.out.println(Proveedor.getProveedor(124));
         //System.out.println(Administrador.getAdministrador(1));
         Sql s = new Sql();
-        System.out.println(s.getPersona(1));
-        s.eliminar(1,"Persona", "ci");
+        //System.out.println(s.getProveedor(123));
+        //s.eliminar(123,"Proveedor", "nit");
         System.out.println(s.getPersona(1));
     }
 }
