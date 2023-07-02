@@ -24,4 +24,5 @@ public class Certificaciones extends Farmaceutico{
     public void setCertificacion(String certificacion) {
         this.certificacion = certificacion;
     }
+
 }

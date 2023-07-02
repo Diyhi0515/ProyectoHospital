@@ -1,10 +1,9 @@
 package Entidades;
 
+
 import Conexion.ConectarBase;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class Departamento {
@@ -89,5 +88,7 @@ public class Departamento {
         }
         return dp;
     }*/
+
+
 
 }

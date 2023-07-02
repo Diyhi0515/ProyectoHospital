@@ -355,6 +355,11 @@ public class Sql {
         }
     }
 
+    public void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
+        String c = "UPDATE " +tabla  +"\n" + "SET "+ atributo +" = "+ cambio +"\n" +" where " +nomllave + " = " +llave;
+        //"UPDATE Persona  \n" + SET apellidoM = ?   where ci = ?"
+        cb.ejecutarSQL(c);
+    }
 
 
     public static void main(String[] args) {
