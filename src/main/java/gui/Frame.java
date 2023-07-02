@@ -237,7 +237,7 @@ public class Frame extends JFrame implements ActionListener {
                 if ((entidades.getSelectedItem()).equals("Administrador")){
                     for (int i = 1; i < temporal.length; i++) {
                         if(!Objects.equals(temporal[i], "")){
-                            if(i<=6) {
+                            if(i<6) {
                                 Sql.modificar("Persona", "ci", Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
                             }else {
                                 Sql.modificar("Administrador", temporal2[0], Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
@@ -269,7 +269,7 @@ public class Frame extends JFrame implements ActionListener {
                 if ((entidades.getSelectedItem()).equals("Farmaceutico")){
                     for (int i = 1; i < temporal.length; i++) {
                         if(!Objects.equals(temporal[i], "")){
-                            if(i<=6) {
+                            if(i<6) {
                                 Sql.modificar("Persona", "ci", Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
                             }else {
                                 Sql.modificar("Farmaceutico", temporal2[0], Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
@@ -287,7 +287,7 @@ public class Frame extends JFrame implements ActionListener {
                 if ((entidades.getSelectedItem()).equals("Medico")){
                     for (int i = 1; i < temporal.length; i++) {
                         if(!Objects.equals(temporal[i], "")){
-                            if(i<=6) {
+                            if(i<6) {
                                 Sql.modificar("Persona", "ci", Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
                             }else {
                                 Sql.modificar("Medico", temporal2[0], Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
