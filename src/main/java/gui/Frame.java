@@ -137,13 +137,17 @@ public class Frame extends JFrame implements ActionListener {
             add(atributosNombres[i]);
             atributos[i].setBounds(130,(i+1)*y,70,20);
             atributosNombres[i].setBounds(10,(i+1)*y,120,20);
+            if(i>1 && atributos[i] != null){
+                botonModificar(tabla, String.valueOf(atributos[0]),Integer.parseInt(String.valueOf(atributos[1])),String.valueOf(atributosNombres[i]),String.valueOf(atributos[i]));
+            }
         }
+
     }
-    public void botones(){
-        btnAgregar.addActionListener(new ActionListener() {
+    public void botonModificar(String tabla, String nomllave, int llave, String atributo, String cambio){
+        btnModificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Sql.modificar(tabla,nomllave, llave,atributo,cambio);
             }
         });
     }
@@ -187,6 +191,9 @@ public class Frame extends JFrame implements ActionListener {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+    public void boton(){
+
     }
 
     @Override
