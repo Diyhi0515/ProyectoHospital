@@ -7,6 +7,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class Frame extends JFrame implements ActionListener {
 
@@ -214,8 +215,162 @@ public class Frame extends JFrame implements ActionListener {
                     throw new RuntimeException(ex);
                 }
             }
+
+        });
+        btnModificar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] temporal = new String[atributos.length];
+                String[] temporal2 = new String[atributosNombres.length];
+                for (int i = 0; i < atributos.length; i++) {
+                    temporal2[i] = atributosNombres[i].getText();
+                    temporal[i] = atributos[i].getText();
+                }
+                if ((entidades.getSelectedItem()).equals("Proveedor")){
+                    for (int i = 1; i < temporal.length; i++) {
+                       if(!Objects.equals(temporal[i], "")){
+                           Sql.modificar("Proveedor", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                       }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Administrador")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Administrador", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Departamento")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Departamento", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("EquipoMedico")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("EquipoMedico", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Sala")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Sala", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Farmaceutico")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Farmaceutico", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Certificaciones")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Certificaciones", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Medico")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Medico", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Asignado")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Asignado", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Medicamento")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Medicamento", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Ingredientes")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Ingredientes", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+                if ((entidades.getSelectedItem()).equals("Entrega")){
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Entrega", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
+                }
+
+
+                try {
+                    actualizarTabla((String)entidades.getSelectedItem());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+        });
+
+        btnEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String[] temporal = new String[atributos.length];
+                String[] temporal2 = new String[atributosNombres.length];
+                for (int i = 0; i < atributos.length; i++) {
+                    temporal2[i] = atributosNombres[i].getText();
+                    temporal[i] = atributos[i].getText();
+                }
+                if ((entidades.getSelectedItem()).equals("Proveedor")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Proveedor", temporal2[0] );
+                }
+                if ((entidades.getSelectedItem()).equals("Administrador")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Administrador", temporal2[0] );
+
+                }
+                if ((entidades.getSelectedItem()).equals("Departamento")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Departamento", temporal2[0] );
+                }
+                if ((entidades.getSelectedItem()).equals("EquipoMedico")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"EquipoMedico", temporal2[0] );
+
+                }
+                if ((entidades.getSelectedItem()).equals("Sala")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Sala", temporal2[0] );
+                }
+                if ((entidades.getSelectedItem()).equals("Farmaceutico")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Farmaceutico", temporal2[0] );
+                }
+                if ((entidades.getSelectedItem()).equals("Certificaciones")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Certificaciones", temporal2[0] );
+                }
+                if ((entidades.getSelectedItem()).equals("Medico")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Medico", temporal2[0] );
+                }
+                if ((entidades.getSelectedItem()).equals("Asignado")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Asignado", temporal2[0] );
+                }
+                if ((entidades.getSelectedItem()).equals("Medicamento")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Medicamento", temporal2[0] );
+                }
+                if ((entidades.getSelectedItem()).equals("Ingredientes")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Ingredientes", temporal2[0] );
+                }
+                if ((entidades.getSelectedItem()).equals("Entrega")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Entrega", temporal2[0] );
+                }
+            }
         });
     }
+    
 
     public void crearComboBox(){
         entidades = new JComboBox<>();

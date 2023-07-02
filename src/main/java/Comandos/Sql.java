@@ -324,7 +324,7 @@ public class Sql {
     }
 
 
-    public void eliminar(int id, String tabla, String nomLlave){
+    public static void eliminar(int id, String tabla, String nomLlave){
         //"delete from Proveedor where nit = ?");
         String c = "delete from " + tabla +" where " +nomLlave +" = " +id;
         cb.ejecutarSQL(c);
