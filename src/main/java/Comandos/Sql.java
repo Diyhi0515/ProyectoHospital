@@ -32,12 +32,12 @@ public class Sql {
 
     public static void insertAdministrador(String[] valores) {
         insertPersona(valores[0],valores[1], valores[2], valores[3], valores[4], valores[5]);
-        String sql = "INSERT INTO Administrador VALUES(" + valores[0] + ", '" + valores[6] + "', '" + valores[7] + "', '" + valores[8] + "')";
+        String sql = "INSERT INTO Administrador VALUES(" + valores[0] + ", '" + valores[6] + "', '" + valores[7] + "', '" + valores[8] +"', "+ valores[9] +")";
         cb.ejecutarSQL(sql);
     }
 
     public static void insertDepartamento(String[] valores) {
-        String sql = "INSERT INTO Departamento VALUES(" + valores[0] + ", '" + valores[1] + "', '" + valores[2] + "', " + valores[3] + ", " + valores[4] + ", " + valores[5] + ")";
+        String sql = "INSERT INTO Departamento VALUES(" + valores[0] + ", '" + valores[1] + "', '" + valores[2] + "', " + valores[3] + ", " + valores[4] + ")";
         System.out.println(sql);
         cb.ejecutarSQL(sql);
     }
@@ -93,7 +93,7 @@ public class Sql {
 
         String query = "SELECT * FROM " + tableName;
         if (tableName.equals("Administrador")){
-            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.experiencia,a.cargo,a.responsabilidad FROM Administrador a JOIN Persona p ON a.per_ci = p.ci;" ;
+            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.experiencia,a.cargo,a.responsabilidad,a.dep_id FROM Administrador a JOIN Persona p ON a.per_ci = p.ci;" ;
         }
         if (tableName.equals("Medico")){
             query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.nLicMedica,a.especialidad FROM Medico a JOIN Persona p ON a.per_ci = p.ci;" ;
@@ -127,7 +127,7 @@ public class Sql {
     public static JTable consultaTotal(String tableName) throws SQLException {
         String query = "SELECT * FROM " + tableName;
         if (tableName.equals("Administrador")){
-            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.experiencia,a.cargo,a.responsabilidad FROM Administrador a JOIN Persona p ON a.per_ci = p.ci;" ;
+            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.experiencia,a.cargo,a.responsabilidad, a.dep_id FROM Administrador a JOIN Persona p ON a.per_ci = p.ci;" ;
         }
         if (tableName.equals("Medico")){
             query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.nLicMedica,a.especialidad FROM Medico a JOIN Persona p ON a.per_ci = p.ci;" ;

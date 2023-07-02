@@ -134,7 +134,7 @@ public class Frame extends JFrame implements ActionListener {
             int y = 40;
             for (int i = 0; i < listaAtributos.length; i++) {
                 atributos[i] = new JTextField();
-                atributosNombres[i] = new JLabel(listaAtributos[i], SwingConstants.RIGHT);
+                atributosNombres[i] = new JLabel(listaAtributos[i] +"  ", SwingConstants.RIGHT);
                 add(atributos[i]);
                 add(atributosNombres[i]);
                 atributos[i].setBounds(130, (i + 1) * y, 70, 20);
@@ -144,7 +144,7 @@ public class Frame extends JFrame implements ActionListener {
             int y = 40;
             for (int i = 0; i < 7; i++) {
                 atributos[i] = new JTextField();
-                atributosNombres[i] = new JLabel(listaAtributos[i], SwingConstants.RIGHT);
+                atributosNombres[i] = new JLabel(listaAtributos[i]+"  ", SwingConstants.RIGHT);
                 add(atributos[i]);
                 add(atributosNombres[i]);
                 atributos[i].setBounds(130, (i + 1) * y, 70, 20);
@@ -153,7 +153,7 @@ public class Frame extends JFrame implements ActionListener {
             int cont = 0;
             for (int i = 7; i < listaAtributos.length; i++) {
                 atributos[i] = new JTextField();
-                atributosNombres[i] = new JLabel(listaAtributos[i] , SwingConstants.RIGHT);
+                atributosNombres[i] = new JLabel(listaAtributos[i]+"  ", SwingConstants.RIGHT);
                 add(atributos[i]);
                 add(atributosNombres[i]);
                 atributos[i].setBounds(300, (cont + 1) * y, 70, 20);
@@ -379,6 +379,11 @@ public class Frame extends JFrame implements ActionListener {
                 }
                 if ((entidades.getSelectedItem()).equals("Entrega")){
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Entrega", temporal2[0] );
+                }
+                try {
+                    actualizarTabla((String)entidades.getSelectedItem());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         });
