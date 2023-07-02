@@ -404,10 +404,11 @@ public class Frame extends JFrame implements ActionListener {
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Asignado", temporal2[0] );
                 }
                 if ((entidades.getSelectedItem()).equals("Medicamento")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Ingredientes", "med_id");
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Medicamento", temporal2[0] );
                 }
                 if ((entidades.getSelectedItem()).equals("Ingredientes")){
-                    Sql.eliminar(Integer.parseInt(temporal[0]),"Ingredientes", temporal2[0] );
+                    Sql.eliminarPorNombre(temporal[1],"Ingredientes",temporal2[1]);
                 }
                 if ((entidades.getSelectedItem()).equals("Entrega")){
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Entrega", temporal2[0] );
