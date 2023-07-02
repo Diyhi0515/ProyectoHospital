@@ -25,9 +25,8 @@ public class Frame extends JFrame implements ActionListener {
 
     JComboBox<String> entidades;
 
-    private JMenu menuArchivo, menuTablas;
+    private JMenu menuArchivo;
     private JMenuItem itemSalir;
-    private JMenuItem itemProveedor;
 
     public Frame() throws SQLException {
 
@@ -77,20 +76,15 @@ public class Frame extends JFrame implements ActionListener {
         menuBarra = new JMenuBar();
 
         menuArchivo = new JMenu("Archivo");
-        menuTablas = new JMenu("tablas");
 
         itemSalir = new JMenuItem("Salir");
-        itemProveedor = new JMenuItem("Proveedor");
 
         itemSalir.addActionListener(this);
-        itemProveedor.addActionListener(this);
 
         setJMenuBar(menuBarra);
 
         menuBarra.add(menuArchivo);
-        menuBarra.add(menuTablas);
 
-        menuTablas.add(itemProveedor);
         menuArchivo.add(itemSalir);
     }
 
