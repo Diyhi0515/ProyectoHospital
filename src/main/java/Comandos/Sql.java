@@ -3,10 +3,10 @@ package Comandos;
 import Conexion.ConectarBase;
 import org.w3c.dom.NodeList;
 
-import javax.swing.*;
-import javax.swing.plaf.nimbus.State;
-import javax.swing.table.DefaultTableModel;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class Sql {
 
@@ -83,65 +83,11 @@ public class Sql {
         cb.ejecutarSQL(sql);
     }
 
-    //SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'proveedor';
-
-    public static JTable consultaTotal(String tableName) throws SQLException {
-
-        String query = "SELECT * FROM " + tableName;
-
-        // Llamar a la función para obtener los datos de la tabla
-        Statement st = cn.createStatement();
-
-        ResultSet resultSet = st.executeQuery(query);
-
-        // Procesar los resultados
-        try {
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            int columnCount = metaData.getColumnCount();
-
-            JTable jTable = new JTable(0,0);
-            DefaultTableModel tblModel = (DefaultTableModel)jTable.getModel();
-
-            // Imprimir los nombres de las columnas
-            for (int i = 1; i <= columnCount; i++) {
-                String columnName = metaData.getColumnName(i);
-                tblModel.addColumn(columnName);
-                System.out.print(columnName + "\t");
-            }
-            System.out.println();
-
-
-
-            // Imprimir los datos de la tabla
-            while (resultSet.next()) {
-                String[] tbdatos = new String[columnCount];
-                for (int i = 1; i <= columnCount; i++) {
-                    String columnValue = resultSet.getString(i);
-                    tbdatos[i-1] = columnValue;
-                    System.out.print(columnValue + "\t");
-                }
-                tblModel.addRow(tbdatos);
-                System.out.println();
-            }
-
-            // Cerrar el ResultSet
-            resultSet.close();
-
-            return new JTable(tblModel);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
 
 
     public static void main(String[] args) {
-        try {
-            consultaTotal("proveedor");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+
+
     }
 }
 

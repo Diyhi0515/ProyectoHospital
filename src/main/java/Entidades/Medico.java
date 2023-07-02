@@ -63,8 +63,6 @@ public class Medico extends Persona{
         }
         return md;
     }
-
-
     public void eliminarMedico(int id){
         ConectarBase con = new ConectarBase();
         try {

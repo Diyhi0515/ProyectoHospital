@@ -1,9 +1,10 @@
 package Entidades;
 
-public class Certificaciones {
+public class Certificaciones extends Farmaceutico{
    private int farm_per_ci;
    private String certificacion;
    public Certificaciones(int ci, String certificacion){
+
        this.farm_per_ci=ci;
        this.certificacion = certificacion;
    }

@@ -1,5 +1,12 @@
 package Entidades;
 
+import Conexion.ConectarBase;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class Departamento {
     private int id;
     private String tipoSala;
@@ -15,6 +22,8 @@ public class Departamento {
         this.cantPersonal = cantPersonal;
         this.ci = ci;
     }
+
+    public Departamento(){}
 
     public int getId() {
         return id;
@@ -59,5 +68,26 @@ public class Departamento {
     public void setCi(int ci) {
         this.ci = ci;
     }
+    /*public static Departamento getDepartamento(int id){
+        ConectarBase conexion =new ConectarBase();
+        Departamento dp =new Departamento();
+        try (Connection con = conexion.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Departamento WHERE id = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                dp.setId(rs.getInt("id"));
+                dp.setTipoSala(rs.getString("tipoSala"));
+                dp.setPresupuesto(rs.getString("presupuesto"));
+                dp.setNumCamas(rs.getInt("numCamamas"));
+                dp.setCantPersonal(rs.getInt("cantPersonal"));
+                dp.setCi(rs.getInt("ad_per_ci"));
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return dp;
+    }*/
 
 }
