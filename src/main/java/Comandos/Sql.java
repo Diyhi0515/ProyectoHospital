@@ -190,9 +190,15 @@ public class Sql {
     }
 
     public static void modificar(String tabla, String nomllave, int llave, String atributo, String cambio){
-        //solo se puede editar atributos string
-        String c = "UPDATE " + tabla + " SET " + atributo + " = '" + cambio + "' where " + nomllave + " = " + llave;
-        //"UPDATE Persona  \n" + SET apellidoM = ?   where ci = ?"
+        boolean isNumeric = (cambio != null && cambio.matches("[0-9]+"));
+        String c = "";
+        if(isNumeric){
+            c = "UPDATE " + tabla + " SET " + atributo + " = " + cambio + " where " + nomllave + " = " + llave;
+        }else {
+            //solo se puede editar atributos string
+            c = "UPDATE " + tabla + " SET " + atributo + " = '" + cambio + "' where " + nomllave + " = " + llave;
+            //"UPDATE Persona  \n" + SET apellidoM = ?   where ci = ?"
+        }
         cb.ejecutarSQL(c);
     }
 
@@ -202,7 +208,7 @@ public class Sql {
         cb.ejecutarSQL(c);
     }
     public static void main(String[] args) {
-        modificar("proveedor", "nit", 9182, "nombre", "Favio");
+       // modificar("proveedor", "nit", 9182, "nombre", "Favio");
     }
 }
 
