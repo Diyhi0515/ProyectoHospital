@@ -214,37 +214,81 @@ public class Frame extends JFrame implements ActionListener {
                     }
                 }
                 if ((entidades.getSelectedItem()).equals("Administrador")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Administrador", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
                 if ((entidades.getSelectedItem()).equals("Departamento")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Departamento", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
                 if ((entidades.getSelectedItem()).equals("EquipoMedico")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("EquipoMedico", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
                 if ((entidades.getSelectedItem()).equals("Sala")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Sala", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
                 if ((entidades.getSelectedItem()).equals("Farmaceutico")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Farmaceutico", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
                 if ((entidades.getSelectedItem()).equals("Certificaciones")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Certificaciones", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
                 if ((entidades.getSelectedItem()).equals("Medico")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Medico", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
                 if ((entidades.getSelectedItem()).equals("Asignado")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Asignado", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
                 if ((entidades.getSelectedItem()).equals("Medicamento")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Medicamento", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
                 if ((entidades.getSelectedItem()).equals("Ingredientes")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Ingredientes", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
                 if ((entidades.getSelectedItem()).equals("Entrega")){
-
+                    for (int i = 1; i < temporal.length; i++) {
+                        if(!Objects.equals(temporal[i], "")){
+                            Sql.modificar("Entrega", temporal2[0],Integer.parseInt(temporal[0]), temporal2[i], temporal[i]);
+                        }
+                    }
                 }
 
 
