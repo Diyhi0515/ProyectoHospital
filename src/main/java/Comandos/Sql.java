@@ -12,9 +12,9 @@ import java.sql.*;
 
 public class Sql {
 
-    static private ConectarBase cb = new ConectarBase();;
+    static private ConectarBase cb = new ConectarBase();
 
-    static private Connection cn = cb.conectarMySQL();;
+    static private Connection cn = cb.conectarMySQL();
 
     public Sql() {
 
@@ -35,6 +35,8 @@ public class Sql {
             insertPersona(valores[0], valores[1], valores[2], valores[3], valores[4], valores[5]);
             String sql = "INSERT INTO Administrador VALUES(" + valores[0] + ", '" + valores[6] + "', '" + valores[7] + "', '" + valores[8] + "', " + valores[9] + ")";
             cb.ejecutarSQL(sql);
+            sql = "UPDATE Departamento set cantPersonal = cantPersonal + 1 WHERE id = " + valores[9];
+            cb.ejecutarSQL(sql);
         }
     }
 
@@ -50,6 +52,8 @@ public class Sql {
 
     public static void insertSala(String[] valores) {
         String sql = "INSERT INTO Sala VALUES(" + valores[0] + ", '" + valores[1] + "', '" + valores[2] + "', " + valores[3] + ")";
+        cb.ejecutarSQL(sql);
+        sql = "UPDATE Departamento set numCamas = numCamas + 1 WHERE id = " + valores[3];
         cb.ejecutarSQL(sql);
     }
 
@@ -76,6 +80,8 @@ public class Sql {
 
     public static void insertAsignado(String[] valores) {
         String sql = "INSERT INTO Asignado VALUES(" + valores[0] + ", " + valores[1] + ")";
+        cb.ejecutarSQL(sql);
+        sql = "UPDATE Departamento set cantPersonal = cantPersonal + 1 WHERE id = " + valores[1];
         cb.ejecutarSQL(sql);
     }
 
@@ -149,7 +155,7 @@ public class Sql {
     public static JTable consultaTotal(String tableName) throws SQLException {
         String query = "SELECT * FROM " + tableName;
         if (tableName.equals("Administrador")){
-            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.experiencia,a.cargo,a.responsabilidad, a.dep_id FROM Administrador a JOIN Persona p ON a.per_ci = p.ci;" ;
+            query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.experiencia,a.cargo,a.responsabilidad, a.dep_id, d.tipoSala  FROM Administrador a JOIN Persona p ON a.per_ci = p.ci JOIN Departamento d ON a.dep_id = d.id;" ;
         }
         if (tableName.equals("Medico")){
             query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.nLicMedica,a.especialidad FROM Medico a JOIN Persona p ON a.per_ci = p.ci;" ;
@@ -157,6 +163,19 @@ public class Sql {
         if (tableName.equals("Farmaceutico")){
             query = "SELECT a.per_ci,p.nombre,p.apellidoP,p.apellidoM,p.salario,p.fechaContratacion,a.horario FROM Farmaceutico a JOIN Persona p ON a.per_ci = p.ci;" ;
         }
+        if (tableName.equals("Asignado")){
+            query = "SELECT a.med_per_ci,a.dep_id,p.nombre,apellidoP ,d.tipoSala  FROM Asignado a JOIN Medico m ON a.med_per_ci = m.per_ci JOIN Departamento d ON a.dep_id = d.id JOIN Persona p ON m.per_ci = p.ci;" ;
+        }
+        if (tableName.equals("Sala")){
+            query = "SELECT a.numHabitacion,a.estadoLimpieza,a.disponibilidad,a.dep_id ,d.tipoSala  FROM Sala a JOIN Departamento d ON a.dep_id = d.id ;" ;
+        }
+        if (tableName.equals("Ingredientes")){
+            query = "SELECT i.med_id,i.ingrediente,m.nombre  FROM Ingredientes i JOIN Medicamento m ON i.med_id = m.id ;" ;
+        }
+        if (tableName.equals("Entrega")){
+            query = "SELECT e.prov_nit,e.med_id, e.precio, e.cantidad , p.nombre ,m.nombre  FROM Entrega e JOIN Medicamento m ON e.med_id = m.id JOIN Proveedor p ON e.prov_nit = p.nit ;" ;
+        }
+
         Statement st = cn.createStatement();
         ResultSet resultSet = st.executeQuery(query);
 
@@ -348,6 +367,22 @@ public class Sql {
 
     public static void eliminar(int id, String tabla, String nomLlave){
         //"delete from Proveedor where nit = ?");
+
+        System.out.println(tabla);
+        if(tabla.equals("Administrador")) {
+            System.out.println("-------------------------");
+            String sql = "UPDATE Departamento SET cantPersonal = cantPersonal - 1 WHERE id = (SELECT dep_id FROM (SELECT a.dep_id FROM Administrador a JOIN Departamento d ON a.dep_id = d.id WHERE a.per_ci =" +id+")subquery);";
+            System.out.println(sql);
+            cb.ejecutarSQL(sql);
+        }
+        if(tabla.equals("Asignado") ) {
+            String sql = "UPDATE Departamento set cantPersonal = cantPersonal - 1 WHERE id = " + id;
+            cb.ejecutarSQL(sql);
+        }
+        if(tabla.equals("Sala") ) {
+            String sql = "UPDATE Departamento SET numCamas = numCamas - 1 WHERE id = (SELECT dep_id FROM (SELECT a.dep_id FROM Sala a JOIN Departamento d ON a.dep_id = d.id WHERE a.numHabitacion =" +id+")subquery);";
+            cb.ejecutarSQL(sql);
+        }
         String c = "delete from " + tabla +" where " +nomLlave +" = " +id;
         cb.ejecutarSQL(c);
     }

@@ -246,7 +246,6 @@ public class Frame extends JFrame implements ActionListener {
                     throw new RuntimeException(ex);
                 }
             }
-
         });
         btnModificar.addActionListener(new ActionListener() {
             @Override
