@@ -377,6 +377,8 @@ public class Frame extends JFrame implements ActionListener {
                     temporal[i] = atributos[i].getText();
                 }
                 if ((entidades.getSelectedItem()).equals("Proveedor")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Entrega","prov_nit");
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"EquipoMedico","prov_nit");
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Proveedor", temporal2[0] );
                 }
                 if ((entidades.getSelectedItem()).equals("Administrador")){
@@ -384,8 +386,10 @@ public class Frame extends JFrame implements ActionListener {
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Persona", "ci");
                 }
                 if ((entidades.getSelectedItem()).equals("Departamento")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Asignado", "dep_id");
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Sala", "dep_id" );
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Administrador", "per_ci" );
-                    Sql.eliminar(Integer.parseInt(temporal[0]),"EquipoMedico","cod");
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"EquipoMedico","dep_id");
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Departamento", temporal2[0] );
                 }
                 if ((entidades.getSelectedItem()).equals("EquipoMedico")){
@@ -396,13 +400,15 @@ public class Frame extends JFrame implements ActionListener {
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Sala", temporal2[0] );
                 }
                 if ((entidades.getSelectedItem()).equals("Farmaceutico")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Certificaciones", "farm_per_ci");
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Farmaceutico", temporal2[0] );
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Persona", "ci");
                 }
                 if ((entidades.getSelectedItem()).equals("Certificaciones")){
-                    Sql.eliminar(Integer.parseInt(temporal[0]),"Certificaciones", temporal2[0] );
+                    Sql.eliminarPorNombre(temporal[1], "Certificaciones", temporal2[1]);
                 }
                 if ((entidades.getSelectedItem()).equals("Medico")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Asignado", "med_per_ci");
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Medico", temporal2[0] );
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Persona", "ci");
                 }
@@ -410,6 +416,7 @@ public class Frame extends JFrame implements ActionListener {
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Asignado", temporal2[0] );
                 }
                 if ((entidades.getSelectedItem()).equals("Medicamento")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Entrega","med_id");
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Ingredientes", "med_id");
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Medicamento", temporal2[0] );
                 }
