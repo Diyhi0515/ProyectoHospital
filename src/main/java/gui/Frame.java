@@ -385,6 +385,7 @@ public class Frame extends JFrame implements ActionListener {
                 }
                 if ((entidades.getSelectedItem()).equals("Departamento")){
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Administrador", "per_ci" );
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"EquipoMedico","cod");
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Departamento", temporal2[0] );
                 }
                 if ((entidades.getSelectedItem()).equals("EquipoMedico")){
