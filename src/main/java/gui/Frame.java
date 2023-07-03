@@ -30,18 +30,18 @@ public class Frame extends JFrame implements ActionListener {
 
     private JMenu menuArchivo;
     private JMenuItem itemSalir;
+    private JLabel jLabel1;
 
     public Frame() throws SQLException {
-
         panelConsultas = new JPanel(new BorderLayout());
-        panelConsultas.setSize(590,300);
+        panelConsultas.setSize(780,300);
         panelConsultas.setBackground(Color.PINK);
         add(panelConsultas);
         panelConsultas.setLocation(0,300);
 
         jTable = Sql.consultaTotal("proveedor");
         jTable.setPreferredSize(new Dimension(300,300));
-        consultas = new JScrollPane(jTable);
+       consultas = new JScrollPane(jTable);
 
 
 
@@ -68,10 +68,12 @@ public class Frame extends JFrame implements ActionListener {
         iniciarPantalla();
 
     }
+
+
     private void iniciarPantalla() {
         setLayout(null);
         setTitle("Hospital");
-        setSize(600, 600);
+        setSize(800, 600);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
@@ -83,7 +85,6 @@ public class Frame extends JFrame implements ActionListener {
         }
     }
     private void selectedRow(){
-
         ListSelectionModel model = jTable.getSelectionModel();
         model.addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -380,9 +381,10 @@ public class Frame extends JFrame implements ActionListener {
                 }
                 if ((entidades.getSelectedItem()).equals("Administrador")){
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Administrador", temporal2[0] );
-
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Persona", "ci");
                 }
                 if ((entidades.getSelectedItem()).equals("Departamento")){
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Administrador", "per_ci" );
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Departamento", temporal2[0] );
                 }
                 if ((entidades.getSelectedItem()).equals("EquipoMedico")){
@@ -394,12 +396,14 @@ public class Frame extends JFrame implements ActionListener {
                 }
                 if ((entidades.getSelectedItem()).equals("Farmaceutico")){
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Farmaceutico", temporal2[0] );
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Persona", "ci");
                 }
                 if ((entidades.getSelectedItem()).equals("Certificaciones")){
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Certificaciones", temporal2[0] );
                 }
                 if ((entidades.getSelectedItem()).equals("Medico")){
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Medico", temporal2[0] );
+                    Sql.eliminar(Integer.parseInt(temporal[0]),"Persona", "ci");
                 }
                 if ((entidades.getSelectedItem()).equals("Asignado")){
                     Sql.eliminar(Integer.parseInt(temporal[0]),"Asignado", temporal2[0] );
