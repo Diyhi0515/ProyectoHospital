@@ -31,14 +31,15 @@ public class Sql {
     }
 
     public static void insertAdministrador(String[] valores) {
-        insertPersona(valores[0],valores[1], valores[2], valores[3], valores[4], valores[5]);
-        String sql = "INSERT INTO Administrador VALUES(" + valores[0] + ", '" + valores[6] + "', '" + valores[7] + "', '" + valores[8] +"', "+ valores[9] +")";
-        cb.ejecutarSQL(sql);
+        if (!getExistePersona(Integer.parseInt(valores[0]))) {
+            insertPersona(valores[0], valores[1], valores[2], valores[3], valores[4], valores[5]);
+            String sql = "INSERT INTO Administrador VALUES(" + valores[0] + ", '" + valores[6] + "', '" + valores[7] + "', '" + valores[8] + "', " + valores[9] + ")";
+            cb.ejecutarSQL(sql);
+        }
     }
 
     public static void insertDepartamento(String[] valores) {
         String sql = "INSERT INTO Departamento VALUES(" + valores[0] + ", '" + valores[1] + "', '" + valores[2] + "', " + valores[3] + ", " + valores[4] + ")";
-        System.out.println(sql);
         cb.ejecutarSQL(sql);
     }
 
@@ -53,9 +54,11 @@ public class Sql {
     }
 
     public static void insertFarmaceutico(String[] valores) {
-        insertPersona(valores[0],valores[1], valores[2], valores[3], valores[4], valores[5]);
-        String sql = "INSERT INTO Farmaceutico VALUES(" + valores[0] + ", '" + valores[6] + "')";
-        cb.ejecutarSQL(sql);
+        if (!getExistePersona(Integer.parseInt(valores[0]))) {
+            insertPersona(valores[0], valores[1], valores[2], valores[3], valores[4], valores[5]);
+            String sql = "INSERT INTO Farmaceutico VALUES(" + valores[0] + ", '" + valores[6] + "')";
+            cb.ejecutarSQL(sql);
+        }
     }
 
     public static void insertCertificaciones(String[] valores) {
@@ -64,9 +67,11 @@ public class Sql {
     }
 
     public static void insertMedico(String[] valores) {
-        insertPersona(valores[0],valores[1], valores[2], valores[3], valores[4], valores[5]);
-        String sql = "INSERT INTO Medico VALUES(" + valores[0] + ", " + valores[6] + ", '" + valores[7] + "')";
-        cb.ejecutarSQL(sql);
+        if (!getExistePersona(Integer.parseInt(valores[0]))) {
+            insertPersona(valores[0], valores[1], valores[2], valores[3], valores[4], valores[5]);
+            String sql = "INSERT INTO Medico VALUES(" + valores[0] + ", " + valores[6] + ", '" + valores[7] + "')";
+            cb.ejecutarSQL(sql);
+        }
     }
 
     public static void insertAsignado(String[] valores) {
@@ -88,7 +93,24 @@ public class Sql {
         String sql = "INSERT INTO Entrega VALUES(" + valores[0] + ", " + valores[1] + ", " + valores[2] + ", " + valores[3] + ")";
         cb.ejecutarSQL(sql);
     }
-
+    public static boolean getExistePersona(int id){
+        ConectarBase conexion =new ConectarBase();
+        Persona per = new Persona();
+        boolean existe;
+        try (Connection con = conexion.conectarMySQL()) {
+            PreparedStatement consulta = con.prepareStatement("SELECT * FROM Persona WHERE ci = ?");
+            consulta.setInt(1,id);
+            ResultSet rs=consulta.executeQuery();
+            while(rs.next()){
+                System.out.println("ya existe una persona con el ID: " + id);
+                return true;
+            }
+            rs.close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
     public static String[] getAtributos(String tableName) throws SQLException {
 
         String query = "SELECT * FROM " + tableName;
@@ -148,10 +170,8 @@ public class Sql {
             for(int i = 1; i <= columnCount; ++i) {
                 String columnName = metaData.getColumnName(i);
                 tblModel.addColumn(columnName);
-                System.out.print(columnName + "\t");
             }
 
-            System.out.println();
 
             while(resultSet.next()) {
                 String[] tbdatos = new String[columnCount];
@@ -159,11 +179,9 @@ public class Sql {
                 for(int i = 1; i <= columnCount; ++i) {
                     String columnValue = resultSet.getString(i);
                     tbdatos[i - 1] = columnValue;
-                    System.out.print(columnValue + "\t");
                 }
 
                 tblModel.addRow(tbdatos);
-                System.out.println();
             }
 
             resultSet.close();

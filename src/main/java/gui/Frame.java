@@ -242,6 +242,7 @@ public class Frame extends JFrame implements ActionListener {
                             e,
                             "Error",
                             JOptionPane.ERROR_MESSAGE);
+                    throw new RuntimeException(ex);
                 }
             }
 
