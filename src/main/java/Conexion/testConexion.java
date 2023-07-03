@@ -1,8 +1,6 @@
 package Conexion;
 
 import Comandos.Sql;
-import Entidades.Administrador;
-import Entidades.Proveedor;
 
 public class testConexion {
     public static void main(String[] args) {
